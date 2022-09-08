@@ -11,4 +11,12 @@ response = session.get(url)
 
 soup = BeautifulSoup(response.content, "html.parser")
 
-print(soup.getText())
+# Scrapes all the posts' titles from the page
+def get_titles():
+    titlesElements = soup.select("h4")
+    titles = [title.getText().strip() for title in titlesElements]
+    return titles
+
+
+titles = get_titles()
+print(titles)
