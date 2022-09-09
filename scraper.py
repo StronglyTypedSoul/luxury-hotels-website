@@ -18,5 +18,19 @@ def get_titles():
     return titles
 
 
+# Scrapes all the posts' contents from the page
+def get_contents():
+    contents_elements = soup.select(".text ol")
+    contents = []
+    for i in range(len(contents_elements)):
+        content_row_elements = contents_elements[i].select("li div")
+        content_rows = [row.getText().strip() for row in content_row_elements]
+        content = "\n".join(content_rows).strip()
+        contents.append(content)
+    return contents
+
+
 titles = get_titles()
+contents = get_contents()
 print(titles)
+print(contents)
