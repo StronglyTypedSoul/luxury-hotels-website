@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import codecs
+from controller import inc_post_count, insert_post, find_post_by_content
 
 INTEGRATED_HTML = True
 html = ""
@@ -72,3 +73,7 @@ for i in range(len(titles)):
     posts.append(post)
 
 print(f"{len(posts)} posts were scraped")
+
+for post in posts:
+    insert_post(post["title"], post["content"], post["author"], post["date"])
+    print(f"inserted a new post titled {post['title']}")
