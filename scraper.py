@@ -1,15 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+import codecs
 
-session = requests.session()
-session.proxies["http"] = "socks5h://localhost:9050"
-session.proxies["https"] = "socks5h://localhost:9050"
+INTEGRATED_HTML = True
+html = ""
 
-url = "http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all"
-response = session.get(url)
+if INTEGRATED_HTML:
+    file = codecs.open("sample.html", "r", "utf-8")
+    html = file.read()
+else:
+    session = requests.session()
+    session.proxies["http"] = "socks5h://localhost:9050"
+    session.proxies["https"] = "socks5h://localhost:9050"
+    url = "http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all"
+    response = session.get(url)
+    html = response.content
 
-soup = BeautifulSoup(response.content, "html.parser")
+soup = BeautifulSoup(html, "html.parser")
+
 
 # Scrapes all the posts' titles from the page
 def get_titles():
@@ -61,4 +70,5 @@ posts = []
 for i in range(len(titles)):
     post = {"title": titles[i], "content": contents[i], "author": authors[i], "date": dates[i]}
     posts.append(post)
-    print(post)
+
+print(f"{len(posts)} posts were scraped")
