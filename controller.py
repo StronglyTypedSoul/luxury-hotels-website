@@ -17,9 +17,13 @@ def insert_post(title: str, content: str, author: str, date: datetime):
 
 # Finds a posts document by content
 def find_post_by_content(content: str):
-    pass
+    query = {"content": content}
+    result = posts.find_one(query)
+    return result
 
 
 # Increments the count of a post by 1
 def inc_post_count(id: ObjectId):
-    pass
+    query = {"_id": id}
+    update = {"$inc": {"count": 1}}
+    posts.update_one(query, update)
