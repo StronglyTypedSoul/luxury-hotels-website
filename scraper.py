@@ -1,8 +1,8 @@
-import requests
 from bs4 import BeautifulSoup
 import codecs
 from controller import inc_post_count, insert_post, find_post_by_content
 import stronghold
+from torRequest import get_tor_content
 
 
 INTEGRATED_HTML = True
@@ -14,12 +14,8 @@ if INTEGRATED_HTML:
     file = codecs.open(current_website.html_file, "r", "utf-8")
     html = file.read()
 else:
-    session = requests.session()
-    session.proxies["http"] = "socks5h://localhost:9050"
-    session.proxies["https"] = "socks5h://localhost:9050"
     url = current_website.url
-    response = session.get(url)
-    html = response.content
+    html = get_tor_content(url)
 
 soup = BeautifulSoup(html, "html.parser")
 posts = current_website.get_posts(soup)
