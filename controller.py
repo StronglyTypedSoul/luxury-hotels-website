@@ -10,8 +10,8 @@ posts = db.posts
 
 
 # Inserts a post to the posts collection
-def insert_post(title: str, content: str, author: str, date: datetime):
-    post = {"title": title, "content": content, "author": author, "date": date, "count": 1}
+def insert_post(title: str, content: str, author: str, date: datetime, site_id: str):
+    post = {"title": title, "content": content, "author": author, "date": date, "site_id": site_id, "count": 1}
     posts.insert_one(post)
 
 

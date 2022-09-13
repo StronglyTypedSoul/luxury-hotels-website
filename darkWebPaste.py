@@ -14,13 +14,21 @@ def get_rows(soup: BeautifulSoup):
 
 
 # Extracts the content from the specific paste's page
-def get_content(url: str):
-    html = get_tor_content(url)
+def get_content(paste_id: str):
+    content_url = single_paste_content_url + paste_id
+    html = get_tor_content(content_url)
     content_soup = BeautifulSoup(html, "html.parser")
     content = content_soup.getText().strip()
-    print(content)
-    # print("\n".join(list(filter(None, "".join(text.split("\r")).split("\n")))))
     return content
+
+
+def calculate_post_date(time_quantity: int, time_unit: str):
+    delta = {"minutes": 0, "hours": 0, "days": 0, "weeks": 0}
+    if time_unit[-1]:
+        time_unit += "s"
+    delta[time_unit] = int(time_quantity)
+    date = datetime.today() - timedelta(minutes=delta["minutes"], hours=delta["hours"], days=delta["days"], weeks=delta["weeks"])
+    return date
 
 
 # Builds a post from a row in the page's table
@@ -29,19 +37,19 @@ def get_post_from_row(row: Tag):
     title = cells[0].getText().strip()
     author = cells[1].getText().strip()
     time_ago = cells[3].getText().strip().split(" ")
-    d = datetime.today() - timedelta(hours=0, minutes=int(time_ago[0]))
-    link = cells[0].select("a")[0].attrs["href"]
-    paste_id = link.split("/")[-1]
-    content_url = single_paste_content_url + paste_id
-    content = get_content(content_url)
-    post = {"title": title, "content": content, "author": author, "date": date}
+    date = calculate_post_date(int(time_ago[0]), time_ago[1].lower())
+    paste_url = cells[0].select("a")[0].attrs["href"]
+    paste_id = paste_url.split("/")[-1]
+    content = get_content(paste_id)
+    post = {"title": title, "content": content, "author": author, "date": date, "site_id": paste_id}
+    return post
 
 
 # Builds all the posts with title, content, author and date
 def get_posts(soup: BeautifulSoup):
     rows = get_rows(soup)
     posts = []
-    # for row in rows:
-    posts.append(get_post_from_row(rows[0]))
+    for row in rows:
+        posts.append(get_post_from_row(row))
     print(f"{len(posts)} posts were scraped from 'dark web paste'")
     return posts
