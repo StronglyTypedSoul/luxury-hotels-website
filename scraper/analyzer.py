@@ -5,7 +5,7 @@ with open("tags.json") as f:
     tags = json.load(f)
 
 
-def analyze_posts(posts: list[dict]):
+def tag_posts(posts: list[dict]):
     for post in posts:
         for tag in tags:
             for keyword in tags[tag]:

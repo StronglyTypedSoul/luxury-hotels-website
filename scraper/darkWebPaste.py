@@ -41,12 +41,12 @@ def get_post_from_row(row: Tag):
     paste_url = cells[0].select("a")[0].attrs["href"]
     paste_id = paste_url.split("/")[-1]
     content = get_content(paste_id)
-    post = {"title": title, "content": content, "author": author, "date": date, "site_id": paste_id}
+    post = {"title": title, "content": content, "author": author, "date": date, "site_id": paste_id, "tags": []}
     return post
 
 
 # Builds all the posts with title, content, author and date
-def get_posts(soup: BeautifulSoup):
+def extract_posts(soup: BeautifulSoup):
     rows = get_rows(soup)
     posts = []
     for row in rows:

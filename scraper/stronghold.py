@@ -44,7 +44,7 @@ def get_dates(infos: list[str]):
 
 
 # Builds all the posts with title, content, author and date
-def get_posts(soup: BeautifulSoup):
+def extract_posts(soup: BeautifulSoup):
     titles = get_titles(soup)
     contents = get_contents(soup)
     infos = get_infos(soup)
@@ -52,7 +52,7 @@ def get_posts(soup: BeautifulSoup):
     dates = get_dates(infos)
     posts = []
     for i in range(len(titles)):
-        post = {"title": titles[i], "content": contents[i], "author": authors[i], "date": dates[i]}
+        post = {"title": titles[i], "content": contents[i], "author": authors[i], "date": dates[i], "tags": []}
         posts.append(post)
     print(f"{len(posts)} posts were scraped from 'stronghold'")
     return posts
