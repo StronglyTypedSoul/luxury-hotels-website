@@ -22,7 +22,8 @@ def get_content(paste_id: str):
     return content
 
 
-def calculate_post_date(time_quantity: int, time_unit: str):
+# Calculates a paste's date by the amount of time that passed since it was posted
+def calculate_paste_date(time_quantity: int, time_unit: str):
     delta = {"minutes": 0, "hours": 0, "days": 0, "weeks": 0}
     if time_unit[-1]:
         time_unit += "s"
@@ -31,25 +32,24 @@ def calculate_post_date(time_quantity: int, time_unit: str):
     return date
 
 
-# Builds a post from a row in the page's table
-def get_post_from_row(row: Tag):
+# Builds a paste from a row in the page's table
+def get_paste_from_row(row: Tag):
     cells = [cell for cell in row.select("td")]
     title = cells[0].getText().strip()
     author = cells[1].getText().strip()
     time_ago = cells[3].getText().strip().split(" ")
-    date = calculate_post_date(int(time_ago[0]), time_ago[1].lower())
-    paste_url = cells[0].select("a")[0].attrs["href"]
-    paste_id = paste_url.split("/")[-1]
+    date = calculate_paste_date(int(time_ago[0]), time_ago[1].lower())
+    paste_id = cells[0].select("a")[0].attrs["href"].split("/")[-1]
     content = get_content(paste_id)
-    post = {"title": title, "content": content, "author": author, "date": date, "site_id": paste_id, "tags": []}
-    return post
+    paste = {"title": title, "content": content, "author": author, "date": date, "tags": []}
+    return paste
 
 
-# Builds all the posts with title, content, author and date
-def extract_posts(soup: BeautifulSoup):
+# Builds all the pastes with title, content, author and date
+def extract_pastes(soup: BeautifulSoup):
     rows = get_rows(soup)
-    posts = []
+    pastes = []
     for row in rows:
-        posts.append(get_post_from_row(row))
-    print(f"{len(posts)} posts were scraped from 'dark web paste'")
-    return posts
+        pastes.append(get_paste_from_row(row))
+    print(f"{len(pastes)} pastes were scraped from 'dark web paste'")
+    return pastes

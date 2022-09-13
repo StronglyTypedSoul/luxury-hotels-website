@@ -1,14 +1,15 @@
-from ctypes.wintypes import tagMSG
 import json
 
+# Loads all the tags from the tags.json file
 with open("tags.json") as f:
     tags = json.load(f)
 
 
-def tag_posts(posts: list[dict]):
-    for post in posts:
+# Checks every paste's title and content and tags them appropriately
+def tag_pastes(pastes: list[dict]):
+    for paste in pastes:
         for tag in tags:
             for keyword in tags[tag]:
-                if keyword in post["title"].lower() or keyword in post["content"].lower():
-                    post["tags"].append(tag)
+                if keyword in paste["title"].lower() or keyword in paste["content"].lower():
+                    paste["tags"].append(tag)
                     break

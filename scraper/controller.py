@@ -6,24 +6,17 @@ client = MongoClient()
 client = MongoClient("mongodb://127.0.0.1:27017")
 
 db = client.darknet
-posts = db.posts
+pastes = db.pastes
 
 
-# Inserts a post to the posts collection
-def insert_post(title: str, content: str, author: str, date: datetime, tags: list[str], site_id: str):
-    post = {"title": title, "content": content, "author": author, "date": date, "tags": tags, "count": 1, "site_id": site_id}
-    posts.insert_one(post)
+# Inserts a paste to the pastes collection
+def insert_paste(title: str, content: str, author: str, date: datetime, tags: list[str]):
+    paste = {"title": title, "content": content, "author": author, "date": date, "tags": tags}
+    pastes.insert_one(paste)
 
 
-# Finds a posts document by content
-def find_post_by_content(content: str):
+# Finds a paste document by content
+def find_paste_by_content(content: str):
     query = {"content": content}
-    result = posts.find_one(query)
+    result = pastes.find_one(query)
     return result
-
-
-# Increments the count of a post by 1
-def inc_post_count(id: ObjectId):
-    query = {"_id": id}
-    update = {"$inc": {"count": 1}}
-    posts.update_one(query, update)

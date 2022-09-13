@@ -1,17 +1,18 @@
 from bs4 import BeautifulSoup
 import codecs
-from controller import inc_post_count, insert_post, find_post_by_content
+from controller import insert_paste, find_paste_by_content
 import stronghold
 import darkWebPaste
 from torRequest import get_tor_content
-from analyzer import tag_posts
+from analyzer import tag_pastes
 
 
 INTEGRATED_HTML = False
 current_website = darkWebPaste
 
 
-def scrape_posts():
+# Scrapes the pastes out of the pastes page
+def scrape_pastes():
     html = ""
     if INTEGRATED_HTML:
         file = codecs.open(current_website.html_file, "r", "utf-8")
@@ -20,28 +21,21 @@ def scrape_posts():
         url = current_website.url
         html = get_tor_content(url)
     soup = BeautifulSoup(html, "html.parser")
-    posts = current_website.extract_posts(soup)
-    return posts
+    pastes = current_website.extract_pastes(soup)
+    return pastes
 
 
-def insert_to_db(posts):
-    for post in posts:
-        search_result = find_post_by_content(post["content"])
+# Insert pastes to the database, if they exist their count is incremented
+def insert_to_db(pastes):
+    for paste in pastes:
+        search_result = find_paste_by_content(paste["content"])
         if search_result:
-            id = search_result["_id"]
-            compare_field = "site_id" if "site_id" in post else "date"
-            if post[compare_field] != search_result[compare_field]:
-                inc_post_count(id)
-                print(f"incremented count of post {id} titled {post['title']}")
-            else:
-                print(f"duplicate of post {id} titled {post['title']}")
+            print(f"duplicate of paste {search_result['_id']} titled {paste['title']}")
         else:
-            if "site_id" not in post:
-                post["site_id"] = ""
-            insert_post(post["title"], post["content"], post["author"], post["date"], post["tags"], post["site_id"])
-            print(f"inserted a new post titled {post['title']}")
+            insert_paste(paste["title"], paste["content"], paste["author"], paste["date"], paste["tags"])
+            print(f"inserted a new paste titled {paste['title']}")
 
 
-posts = scrape_posts()
-tag_posts(posts)
-insert_to_db(posts)
+pastes = scrape_pastes()
+tag_pastes(pastes)
+insert_to_db(pastes)
