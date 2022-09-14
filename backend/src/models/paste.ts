@@ -10,12 +10,15 @@ export interface IPaste {
 
 export interface IPasteModel extends IPaste, Document {}
 
-const PasteSchema = new Schema({
-	title: { type: String, required: true },
-	content: { type: String, required: true },
-	author: { type: String, required: true },
-	date: { type: Date, required: true },
-	tags: { type: Array<String>, required: true },
-});
+const PasteSchema = new Schema(
+	{
+		title: { type: String, required: true },
+		content: { type: String, required: true },
+		author: { type: String, required: true },
+		date: { type: Date, required: true },
+		tags: { type: Array<String>, required: true },
+	},
+	{ collection: "pastes" }
+);
 
 export default model<IPasteModel>("Paste", PasteSchema);
