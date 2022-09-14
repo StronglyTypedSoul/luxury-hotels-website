@@ -1,0 +1,32 @@
+@mixin flex($direction, $justify, $align) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+@mixin position($position, $top, $left) {
+	position: $position;
+	top: $top;
+	left: $left;
+}
+
+@mixin centerAbsolute {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@function mixWhite($color, $percentage) {
+	@return mix(white, $color, $percentage);
+}
+
+@function mixBlack($color, $percentage) {
+	@return mix(black, $color, $percentage);
+}
