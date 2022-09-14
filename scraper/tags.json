@@ -4,5 +4,6 @@
 	"slavery": ["rent teen", "rent people", "rent a teen", "rent a kid", "slave"],
 	"crypto": ["crypto", "bitcoin", "ethereum"],
 	"hacking": ["hacking", "trojan", "antivirus", "keylogger", " rat "],
-	"drugs": ["marijuana", "weed", "grass", "pot", "cocaine", "heroine", "drugs", "hashish", "lsd", "ecstasy"]
+	"drugs": ["marijuana", "weed", "grass", "pot", "cocaine", "heroine", "drugs", "hashish", "lsd", "ecstasy"],
+	"fake documents": ["passport", " id ", "visa", "card", "drivers license", "driver license", "certificate"]
 }
