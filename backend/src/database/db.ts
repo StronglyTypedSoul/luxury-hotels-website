@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import Paste, { IPaste, IPasteModel } from "../models/paste";
 
 export async function connect(): Promise<void> {
 	await mongoose.connect(process.env.DATABASE_URL);
 }
 
-export async function getAllPastes(): Promise<Paste[]> {}
+export async function getAllPastes(): Promise<IPasteModel[]> {}
 
 export async function getAllPastesCount(): Promise<number> {}
 
