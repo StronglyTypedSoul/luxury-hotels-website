@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import codecs
-from controller import insert_paste, find_paste_by_content
+from db import insert_paste, find_paste_by_content
 import stronghold
 import darkWebPaste
 from torRequest import get_tor_content
