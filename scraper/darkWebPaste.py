@@ -25,7 +25,7 @@ def get_content(paste_id: str):
 # Calculates a paste's date by the amount of time that passed since it was posted
 def calculate_paste_date(time_quantity: int, time_unit: str):
     delta = {"minutes": 0, "hours": 0, "days": 0, "weeks": 0}
-    if time_unit[-1]:
+    if time_unit[-1] != "s":
         time_unit += "s"
     delta[time_unit] = int(time_quantity)
     date = datetime.today() - timedelta(minutes=delta["minutes"], hours=delta["hours"], days=delta["days"], weeks=delta["weeks"])
