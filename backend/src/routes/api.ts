@@ -13,14 +13,16 @@ router.use("/pastes", pastesRouter);
 
 // Gets all the tags and the amount of pastes which in they appear
 router.get("/tags", (req: Request, res: Response) => {
-	const tags = db.getTagsByQuantity();
-	res.status(200).json(tags);
+	db.getTagsByQuantity()
+		.then((tags) => res.status(200).json(tags))
+		.catch((err) => res.status(500).send(err.message));
 });
 
 // Gets the 5 most active authors
 router.get("/authors/top", (req: Request, res: Response) => {
-	const authors = db.getTopAuthors();
-	res.status(200).json(authors);
+	db.getTopAuthors()
+		.then((authors) => res.status(200).json(authors))
+		.catch((err) => res.status(500).send(err.message));
 });
 
 export default router;

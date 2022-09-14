@@ -13,9 +13,7 @@ app.use(json());
 
 // Initialization of database and server
 db.connect()
-	.then(() => {
-		app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-	})
+	.then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
 	.catch((err) => console.log(err.message));
 
 // Routes to api endpoints
