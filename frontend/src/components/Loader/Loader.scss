@@ -1,0 +1,25 @@
+@import "../../style-partials/utilities";
+
+.loader {
+	@include flex(row, center, center);
+	@include size(100%, 100%);
+	font-size: 0.7rem;
+}
+
+.loader-content {
+	@include size(16px, 16px);
+	border-radius: 50%;
+	background: #fff;
+	animation: loader 0.9s ease infinite alternate;
+}
+
+@keyframes loader {
+	0% {
+		box-shadow: 0 0, 0 0;
+		color: rgba(255, 255, 255, 0.2);
+	}
+	100% {
+		box-shadow: -24px 0, 24px 0;
+		color: rgba(255, 255, 255, 0.8);
+	}
+}
