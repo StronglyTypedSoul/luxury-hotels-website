@@ -26,7 +26,7 @@ export async function getTodayPastesCount(): Promise<number> {
 	return count;
 }
 
-// Gets a list of tags with the count of their appearance
+// Gets all the tags and the amount of pastes which in they appear
 export async function getTagsByQuantity(): Promise<{ sum: number; tag: string }[]> {
 	const tags = await Paste.aggregate([
 		{ $project: { tags: 1 } },

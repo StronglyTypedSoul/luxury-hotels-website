@@ -11,18 +11,19 @@ router.use(morgan(":method :url :status"));
 // Routes to pastes endpoints
 router.use("/pastes", pastesRouter);
 
-// Gets all the tags and the amount of pastes which in they appear
-router.get("/tags", (req: Request, res: Response) => {
-	db.getTagsByQuantity()
-		.then((tags) => res.status(200).json(tags))
-		.catch((err) => res.status(500).send(err.message));
-});
-
-// Gets the 5 most active authors
-router.get("/authors/top", (req: Request, res: Response) => {
-	db.getTopAuthors()
-		.then((authors) => res.status(200).json(authors))
-		.catch((err) => res.status(500).send(err.message));
+// Gets all the dashboard components: all pastes count, today's pastes count, top authors and tags
+router.get("/dashboard", async (req: Request, res: Response) => {
+	const dashboard = {};
+	try {
+		dashboard["totalPastes"] = await db.getAllPastesCount();
+		dashboard["todayPastes"] = await db.getAllPastesCount();
+		dashboard["topAuthors"] = await db.getTopAuthors();
+		dashboard["tags"] = await db.getTagsByQuantity();
+		res.status(200).json(dashboard);
+	} catch (err) {
+		console.log(err.message);
+		res.status(500).send(err.message);
+	}
 });
 
 export default router;

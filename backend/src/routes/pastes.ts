@@ -10,18 +10,4 @@ router.get("/", async (req: Request, res: Response) => {
 		.catch((err) => res.status(500).send(err.message));
 });
 
-// Gets the count of all the pastes
-router.get("/all/count", async (req: Request, res: Response) => {
-	db.getAllPastesCount()
-		.then((count) => res.status(200).send(String(count)))
-		.catch((err) => res.status(500).send(err.message));
-});
-
-// Gets the count of all the pastes from today
-router.get("/today/count", async (req: Request, res: Response) => {
-	db.getTodayPastesCount()
-		.then((count) => res.status(200).send(String(count)))
-		.catch((err) => res.status(500).send(err.message));
-});
-
 export default router;
