@@ -40,7 +40,7 @@ export async function getTagsByQuantity(): Promise<{ sum: number; tag: string }[
 		{
 			$project: {
 				_id: 0,
-				tag: "$_id",
+				name: "$_id",
 				sum: 1,
 			},
 		},
