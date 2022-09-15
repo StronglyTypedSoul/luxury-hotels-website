@@ -1,0 +1,28 @@
+@import "../../style-partials/utilities";
+@import "../../style-partials/presets";
+@import "../../style-partials/variables";
+
+.dashboard-page {
+	@include page;
+	.features-container {
+		@include size(100%, 100%);
+		display: grid;
+		grid-template-areas:
+			"total-pastes top-authors tags-diagram tags-diagram"
+			"total-pastes top-authors tags-diagram tags-diagram"
+			"today-pastes top-authors tags-diagram tags-diagram"
+			"today-pastes top-authors tags-diagram tags-diagram";
+		.total-pastes {
+			grid-area: total-pastes;
+		}
+		.today-pastes {
+			grid-area: today-pastes;
+		}
+		.top-authors {
+			grid-area: top-authors;
+		}
+		.tags-diagram {
+			grid-area: tags-diagram;
+		}
+	}
+}

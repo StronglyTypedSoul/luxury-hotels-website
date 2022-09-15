@@ -1,2 +1,16 @@
 @import "variables";
 @import "utilities";
+@import "variables";
+
+@mixin page {
+	height: calc(100vh - $navbar-height);
+	padding: 1em;
+}
+
+@mixin feature {
+	margin: 0.5em;
+	padding: 1em;
+	border-radius: 5px;
+	background-color: $feature-color;
+	box-shadow: 0 0 10px 2px rgba($color: #000000, $alpha: 0.4);
+}
