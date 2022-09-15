@@ -2,4 +2,8 @@
 
 .total-pastes {
 	@include feature;
+	.count {
+		font-size: 3.2rem;
+		font-weight: bold;
+	}
 }

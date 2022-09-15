@@ -2,4 +2,12 @@
 
 .today-pastes {
 	@include feature;
+	.count {
+		font-size: 3.2rem;
+		font-weight: bold;
+	}
+	.rate {
+		font-size: 1.8rem;
+		font-weight: bold;
+	}
 }
