@@ -1,12 +1,12 @@
 import "./TagsDiagram.scss";
 import Loader from "../Loader/Loader";
 
-const TagsDiagram: React.FC = () => {
-	return (
-		<div className="tags-diagram">
-			<Loader />
-		</div>
-	);
+interface TagsDiagramProps {
+	tags: { sum: number; name: string }[] | undefined;
+}
+
+const TagsDiagram: React.FC<TagsDiagramProps> = ({ tags }) => {
+	return <div className="tags-diagram">{tags?.length || <Loader />}</div>;
 };
 
 export default TagsDiagram;

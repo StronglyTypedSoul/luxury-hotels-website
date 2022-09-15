@@ -1,12 +1,12 @@
 import "./TotalPastes.scss";
 import Loader from "../Loader/Loader";
 
-const TotalPastes: React.FC = () => {
-	return (
-		<div className="total-pastes">
-			<Loader />
-		</div>
-	);
+interface TotalPastesProps {
+	totalPastes: number | undefined;
+}
+
+const TotalPastes: React.FC<TotalPastesProps> = ({ totalPastes }) => {
+	return <div className="total-pastes">{totalPastes || <Loader />}</div>;
 };
 
 export default TotalPastes;

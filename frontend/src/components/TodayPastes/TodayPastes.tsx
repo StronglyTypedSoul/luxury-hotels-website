@@ -1,12 +1,12 @@
 import "./TodayPastes.scss";
 import Loader from "../Loader/Loader";
 
-const TodayPastes: React.FC = () => {
-	return (
-		<div className="today-pastes">
-			<Loader />
-		</div>
-	);
+interface TodayPastesProps {
+	todayPastes: number | undefined;
+}
+
+const TodayPastes: React.FC<TodayPastesProps> = ({ todayPastes }) => {
+	return <div className="today-pastes">{todayPastes || <Loader />}</div>;
 };
 
 export default TodayPastes;
