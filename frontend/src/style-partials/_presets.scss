@@ -8,7 +8,8 @@
 }
 
 @mixin feature {
-	font-size: 1.4rem;
+	@include flex(column, center, center);
+	font-size: 1.3rem;
 	margin: 0.5em;
 	padding: 1em;
 	border-radius: 5px;

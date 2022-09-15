@@ -7,12 +7,12 @@
 	.features-container {
 		@include size(100%, 100%);
 		display: grid;
-		grid-template: repeat(4, minmax(0, 1fr)) / repeat(4, minmax(0, 1fr));
+		grid-template: repeat(4, minmax(0, 1fr)) / repeat(6, minmax(0, 1fr));
 		grid-template-areas:
-			"total-pastes top-authors tags-diagram tags-diagram"
-			"total-pastes top-authors tags-diagram tags-diagram"
-			"today-pastes top-authors tags-diagram tags-diagram"
-			"today-pastes top-authors tags-diagram tags-diagram";
+			"total-pastes total-pastes tags-diagram tags-diagram tags-diagram tags-diagram"
+			"today-pastes today-pastes tags-diagram tags-diagram tags-diagram tags-diagram"
+			"top-authors top-authors tags-diagram tags-diagram tags-diagram tags-diagram"
+			"top-authors top-authors tags-diagram tags-diagram tags-diagram tags-diagram";
 		.total-pastes {
 			grid-area: total-pastes;
 		}

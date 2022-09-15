@@ -14,10 +14,8 @@ const TodayPastes: React.FC<TodayPastesProps> = ({ todayPastes }) => {
 			{todayPastes ? (
 				<>
 					<p>
-						<span className="count">{todayPastes}</span> new pastes were scraped since midnight
-					</p>
-					<p>
-						{"That's"} a rate of <span className="rate">{pastesPerHour}</span> pastes per hour
+						<span className="count">{todayPastes}</span> new pastes were scraped since midnight. {"That's"} a rate of{" "}
+						<span className="rate">{pastesPerHour}</span> pastes per hour
 					</p>
 				</>
 			) : (

@@ -12,9 +12,8 @@ const TotalPastes: React.FC<TotalPastesProps> = ({ totalPastes }) => {
 				<>
 					<p>
 						A total of
-						<span className="count"> {totalPastes}</span>
+						<span className="count"> {totalPastes} </span>pastes were scraped from the dark web
 					</p>
-					<p>pastes were scraped from the dark web</p>
 				</>
 			) : (
 				<Loader />
