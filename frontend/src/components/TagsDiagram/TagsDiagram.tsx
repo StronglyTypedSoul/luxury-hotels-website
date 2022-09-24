@@ -9,26 +9,59 @@ interface TagsDiagramProps {
 
 const TagsDiagram: React.FC<TagsDiagramProps> = ({ tags }) => {
 	console.log(tags);
+
+	const randomRgb = () => {
+		const randomColor = () => Math.floor(Math.random() * 256);
+		return `rgb(${randomColor()},${randomColor()},${randomColor()})`;
+	};
+
+	const capitalize = (str: string) => {
+		return str[0].toUpperCase() + str.slice(1);
+	};
+
 	const chartData = {
-		labels: tags?.map((tag) => tag.name),
+		labels: tags?.map((tag) => capitalize(tag.name)),
 		datasets: [
 			{
 				label: "data",
 				data: tags?.map((tag) => tag.sum),
-				backgroundColor: [
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-					"rgb(200,200,200)",
-				],
+				color: "#666",
+				backgroundColor: tags?.map(() => randomRgb()),
 			},
 		],
 	};
+	const chartOptions = {
+		plugins: {
+			legend: {
+				display: false,
+			},
+		},
+		layout: {
+			padding: 40,
+		},
+		scales: {
+			yAxes: {
+				grid: {
+					color: "gray",
+				},
+				ticks: {
+					color: "white",
+					fontSize: 13,
+				},
+			},
+			xAxes: {
+				grid: {
+					display: false,
+				},
+				ticks: {
+					color: "white",
+					fontSize: 13,
+				},
+			},
+		},
+	};
 	console.log(chartData);
-	return <div className="tags-diagram">{tags ? <Bar data={chartData} /> : <Loader />}</div>;
+	return <div className="tags-diagram">{tags ? <Bar data={chartData} options={chartOptions} /> : <Loader />}</div>;
 };
 
 export default TagsDiagram;
