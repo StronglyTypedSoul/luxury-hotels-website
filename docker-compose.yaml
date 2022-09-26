@@ -1,0 +1,13 @@
+services:
+  mongo:
+    container_name: Mongo
+    hostname: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+  tor:
+    container_name: Tor
+    hostname: tor
+    image: dperson/torproxy
+    ports:
+      - 9050:9050
