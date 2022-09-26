@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 url = "http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all"
-html_file = "./htmls/stronghold.html"
+html_file = "./src/websites/htmls/stronghold.html"
 
 # Scrapes all the pastes' titles from the page
 def get_titles(soup: BeautifulSoup):

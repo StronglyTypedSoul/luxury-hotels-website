@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import codecs
-import stronghold
-import darkWebPaste
+import websites.stronghold as stronghold
+import websites.darkWebPaste as darkWebPaste
 from torRequest import get_tor_content
 
 

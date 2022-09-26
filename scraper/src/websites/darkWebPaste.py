@@ -4,7 +4,7 @@ from torRequest import get_tor_content
 
 url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/lists"
 single_paste_content_url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/view/raw/"
-html_file = "./htmls/darkWebPaste.html"
+html_file = "./src/websites/htmls/darkWebPaste.html"
 
 
 # Extracts the content from the specific paste's page

@@ -1,14 +1,16 @@
-from time import sleep
 from dotenv import load_dotenv
 
 load_dotenv()
 
+import time
 from scraper import scrape_pastes
 from analyzer import tag_pastes
 from db import find_paste_by_content, insert_paste
+from torRequest import get_tor_content
+from websites.darkWebPaste import url
 
 
-# Insert pastes to the database, if they exist their count is incremented
+# Insert pastes to the database if they do not already exist
 def insert_to_db(pastes):
     for paste in pastes:
         search_result = find_paste_by_content(paste["content"])
@@ -19,7 +21,25 @@ def insert_to_db(pastes):
             print(f"inserted a new paste titled {paste['title']}")
 
 
+# Validating the connection to tor browser
+def validate_connection():
+    print("Establishing connection with TOR")
+    connection = False
+    while not connection:
+        try:
+            get_tor_content(url)
+            connection = True
+        except:
+            print("Failed to connect, trying again...")
+            pass
+        time.sleep(5)
+    print("Connection established")
+    return
+
+
+# The main application loop, attempting to scrape the website every 2 minutes
 def main():
+    validate_connection()
     while True:
         try:
             print("Starting scraping process")
@@ -27,9 +47,10 @@ def main():
             tag_pastes(pastes)
             insert_to_db(pastes)
             print("Scraping process succeeded")
-        except:
+        except Exception as e:
+            print(e)
             print("Scraping process failed")
-        sleep(120)
+        time.sleep(120)
 
 
 if __name__ == "__main__":

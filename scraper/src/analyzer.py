@@ -1,7 +1,7 @@
 import json
 
 # Loads all the tags from the tags.json file
-with open("tags.json") as f:
+with open("./src/tags.json") as f:
     tags = json.load(f)
 
 

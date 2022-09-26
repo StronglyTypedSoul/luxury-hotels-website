@@ -11,3 +11,9 @@ services:
     image: dperson/torproxy
     ports:
       - 9050:9050
+  scraper:
+    container_name: Scraper
+    build: ./scraper
+    depends_on:
+      - mongo
+      - tor

@@ -1,9 +1,7 @@
 import os
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 from datetime import datetime
 
-client = MongoClient()
 client = MongoClient(os.getenv("DATABASE_URL"))
 
 db = client.darknet
