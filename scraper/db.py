@@ -1,9 +1,10 @@
+import os
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
 
 client = MongoClient()
-client = MongoClient("mongodb://127.0.0.1:27017")
+client = MongoClient(os.getenv("DATABASE_URL"))
 
 db = client.darknet
 pastes = db.pastes
