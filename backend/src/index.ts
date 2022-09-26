@@ -1,12 +1,11 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "./config/config";
 import path from "path";
 import express, { Request, Response } from "express";
 import { json } from "body-parser";
 import apiRouter from "./routes/api";
 import * as db from "./database/db";
 
-const PORT = +process.env.PORT || 5000;
+const PORT = +process.env.PORT;
 const app = express();
 
 app.use(json());
