@@ -1,19 +1,24 @@
 services:
+  # MongoDB Database
   mongo:
     container_name: Mongo
     hostname: mongo
     image: mongo
     ports:
       - 27017:27017
+  # Tor browser
   tor:
     container_name: Tor
     hostname: tor
     image: dperson/torproxy
     ports:
       - 9050:9050
+  # Python scraper
   scraper:
     container_name: Scraper
     build: ./scraper
     depends_on:
       - mongo
       - tor
+  # Nodejs-Express application
+  # React application
