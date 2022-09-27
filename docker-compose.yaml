@@ -21,4 +21,12 @@ services:
       - mongo
       - tor
   # Nodejs-Express application
+  backend:
+    container_name: Backend
+    hostname: backend
+    build: ./backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
   # React application
