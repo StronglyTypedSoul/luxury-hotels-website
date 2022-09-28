@@ -20,9 +20,9 @@ services:
     depends_on:
       - mongo
       - tor
-  # Nodejs-Express application
+  # Express application
   backend:
-    container_name: Backend
+    container_name: Express
     hostname: backend
     build: ./backend
     ports:
@@ -30,3 +30,11 @@ services:
     depends_on:
       - mongo
   # React application
+  frontend:
+    container_name: React
+    hostname: frontend
+    build: ./frontend
+    ports:
+      - 3000:80
+    depends_on:
+      - backend

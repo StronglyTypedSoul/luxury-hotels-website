@@ -1,4 +1,4 @@
 **/node_modules
-.eslintrc.json
+# .eslintrc.json
 .gitignore
 README.md
