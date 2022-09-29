@@ -12,3 +12,8 @@ export const getDashboardComponents = async () => {
 	const response = axios.get("/api/dashboard");
 	return responseHandler(response);
 };
+
+export const getAllPastes = async () => {
+	const response = axios.get("/api/pastes");
+	return responseHandler(response);
+};

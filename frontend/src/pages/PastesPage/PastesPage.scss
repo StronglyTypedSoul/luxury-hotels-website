@@ -1,0 +1,7 @@
+@import "../../style-partials/utilities";
+@import "../../style-partials/presets";
+@import "../../style-partials/variables";
+
+.pastes-page {
+	@include page;
+}
