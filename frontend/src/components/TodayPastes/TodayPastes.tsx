@@ -7,7 +7,7 @@ interface TodayPastesProps {
 
 const TodayPastes: React.FC<TodayPastesProps> = ({ todayPastes }) => {
 	const currentHour = new Date().getHours();
-	const pastesPerHour = todayPastes && (currentHour / todayPastes).toFixed(1);
+	const pastesPerHour = todayPastes && (todayPastes / currentHour).toFixed(1);
 
 	return (
 		<div className="today-pastes">

@@ -16,7 +16,7 @@ router.get("/dashboard", async (req: Request, res: Response) => {
 	const dashboard = {};
 	try {
 		dashboard["totalPastes"] = await db.getAllPastesCount();
-		dashboard["todayPastes"] = await db.getAllPastesCount();
+		dashboard["todayPastes"] = await db.getTodayPastesCount();
 		dashboard["topAuthors"] = await db.getTopAuthors();
 		dashboard["tags"] = await db.getTagsByQuantity();
 		res.status(200).json(dashboard);
