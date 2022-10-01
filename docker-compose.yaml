@@ -37,8 +37,14 @@ services:
   frontend:
     container_name: React
     hostname: frontend
-    build: ./frontend
+    build:
+      context: ./frontend
+      target: development
+    command: npm start
     ports:
-      - 3000:80
+      - 3000:3000
+    volumes:
+      - ./frontend/:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - backend
