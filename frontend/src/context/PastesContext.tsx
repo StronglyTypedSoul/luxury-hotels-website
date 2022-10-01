@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllPastes } from "../api/endpoints";
+import IPaste from "../interfaces/paste";
 
 interface PastesContextState {
-	pastes: any[];
+	pastes: IPaste[];
 }
 
 const PastesContext = createContext<PastesContextState | undefined>(undefined);
@@ -17,7 +18,7 @@ export const usePastes = () => {
 };
 
 const PastesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [pastes, setPastes] = useState<any[]>([]);
+	const [pastes, setPastes] = useState<IPaste[]>([]);
 
 	useEffect(() => {
 		getAllPastes().then((pastes) => {

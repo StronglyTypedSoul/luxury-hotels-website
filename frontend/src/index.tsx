@@ -5,6 +5,10 @@ import Navbar from "./components/Navbar/Navbar";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import PastesPage from "./pages/PastesPage/PastesPage";
 import PastesProvider from "./context/PastesContext";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
