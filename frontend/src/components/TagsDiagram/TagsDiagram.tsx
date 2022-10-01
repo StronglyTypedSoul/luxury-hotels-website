@@ -8,8 +8,6 @@ interface TagsDiagramProps {
 }
 
 const TagsDiagram: React.FC<TagsDiagramProps> = ({ tags }) => {
-	console.log(tags);
-
 	const randomRgb = () => {
 		const randomColor = () => Math.floor(Math.random() * 256);
 		return `rgb(${randomColor()},${randomColor()},${randomColor()})`;
@@ -60,7 +58,6 @@ const TagsDiagram: React.FC<TagsDiagramProps> = ({ tags }) => {
 			},
 		},
 	};
-	console.log(chartData);
 	return <div className="tags-diagram">{tags ? <Bar data={chartData} options={chartOptions} /> : <Loader />}</div>;
 };
 

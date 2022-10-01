@@ -6,12 +6,13 @@ interface TodayPastesProps {
 }
 
 const TodayPastes: React.FC<TodayPastesProps> = ({ todayPastes }) => {
+	console.log(todayPastes);
 	const currentHour = new Date().getHours();
 	const pastesPerHour = todayPastes && (todayPastes / currentHour).toFixed(1);
 
 	return (
 		<div className="today-pastes">
-			{todayPastes ? (
+			{todayPastes !== undefined ? (
 				<>
 					<p>
 						<span className="count">{todayPastes}</span> new pastes were scraped since midnight. {"That's"} a rate of{" "}
