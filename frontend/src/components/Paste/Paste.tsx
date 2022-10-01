@@ -12,13 +12,24 @@ const Paste: React.FC<PasteProps> = ({ paste }) => {
 	const [showContent, setShowContent] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 
-	const { title, content, author, date } = paste;
+	const { title, content, author, date, tags } = paste;
 
 	return (
 		<div className="paste">
 			<div className="header">
-				<div className="title">{title}</div>
-				<div className="metadata">
+				<div className="caption">
+					<span className="title">{title}</span>
+					{tags.length > 0 && (
+						<span className="tags">
+							{tags.map((tag) => (
+								<span className="tag" key={tag}>
+									{tag}
+								</span>
+							))}
+						</span>
+					)}
+				</div>
+				<div className="info">
 					<span className="author">{author}</span>
 					<span>
 						, <ReactTimeAgo date={new Date(date)} />
