@@ -4,13 +4,13 @@
 
 @mixin page {
 	height: calc(100vh - $navbar-height);
-	padding: 1em;
+	margin-top: $navbar-height;
+	padding: 2em;
 }
 
 @mixin feature {
 	@include flex(column, center, center);
 	font-size: 1.3rem;
-	margin: 0.5em;
 	padding: 1em;
 	border-radius: 5px;
 	background-color: $feature-color;

@@ -1,6 +1,44 @@
 @import "../../style-partials/variables";
+@import "../../style-partials/utilities";
 
 .navbar {
+	@include flex(row, space-between, center);
+	position: fixed;
+	top: 0;
+	width: 100%;
 	height: $navbar-height;
-	background-color: pink;
+	background-color: $feature-color;
+	font-size: 2rem;
+	font-weight: bold;
+	padding: 0.5em 1.5em;
+	box-shadow: 0 0 10px 1px black;
+	.links {
+		@include flex(row, flex-start, center);
+		column-gap: 30px;
+		a {
+			background-color: lighten($feature-color, 13%);
+			padding: 0.2em 0.4em;
+			border-radius: 5px;
+			position: relative;
+			z-index: 1;
+			overflow: hidden;
+			& div {
+				@include size(100%, 100%);
+				@include position(absolute, 0, 0);
+				border-radius: 5px;
+				z-index: -1;
+				scale: 0;
+				background-color: $navbar-second-color;
+				transition: scale 0.4s;
+			}
+			&.active div {
+				scale: 1;
+			}
+		}
+	}
+	.notifications {
+		font-size: 1.8rem;
+		color: $navbar-second-color;
+		cursor: pointer;
+	}
 }
