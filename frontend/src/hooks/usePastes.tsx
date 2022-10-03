@@ -5,13 +5,13 @@ import IPaste from "../interfaces/paste";
 const usePastes = () => {
 	const [pastes, setPastes] = useState<IPaste[]>([]);
 	const [offset, setOffset] = useState(0);
+	const [searchTerm, setSearchTerm] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasMorePastes, setHasMorePastes] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
-
-		getPastesBatch(offset)
+		getPastesBatch(offset, searchTerm)
 			.then((newPastes) => {
 				setPastes((prevPastes) => [...prevPastes, ...newPastes]);
 				setHasMorePastes(Boolean(newPastes.length));
@@ -20,13 +20,19 @@ const usePastes = () => {
 			.catch(() => {
 				setIsLoading(false);
 			});
-	}, [offset]);
+	}, [offset, searchTerm]);
 
 	const fetchMorePastes = () => {
 		setOffset((prevOffset) => prevOffset + PASTES_BATCH_SIZE);
 	};
 
-	return { pastes, isLoading, hasMorePastes, fetchMorePastes };
+	const searchPastes = (term: string) => {
+		setPastes([]);
+		setSearchTerm(term);
+		setOffset(0);
+	};
+
+	return { pastes, isLoading, hasMorePastes, fetchMorePastes, searchPastes };
 };
 
 export default usePastes;

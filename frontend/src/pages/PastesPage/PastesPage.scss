@@ -4,7 +4,30 @@
 
 .pastes-page {
 	@include page;
+	max-width: 1300px;
+	margin-left: auto;
+	margin-right: auto;
 	.loader {
 		margin-top: 1em;
+	}
+	.queries {
+		@include flex(row, space-between, center);
+		font-size: 1.3rem;
+		margin-bottom: 1em;
+		.search {
+			width: 30%;
+			input {
+				background-color: $paste-color;
+				width: 100%;
+				padding: 0.4em 0.6em;
+				border-radius: 4px;
+				outline: 3px solid transparent;
+				transition: outline 0.3s;
+				border: 0;
+				&:focus {
+					outline: 3px solid #1e88df;
+				}
+			}
+		}
 	}
 }

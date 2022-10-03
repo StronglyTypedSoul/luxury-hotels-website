@@ -1,8 +1,9 @@
 @import "../../style-partials/utilities";
+@import "../../style-partials/variables";
 
 .paste {
 	font-size: 1.2rem;
-	background-color: rgb(245, 245, 245);
+	background-color: $paste-color;
 	border-bottom: 1px solid gray;
 	padding: 1.1em 1.4em;
 	.header {
@@ -22,7 +23,7 @@
 			.tag {
 				font-size: 0.9rem;
 				border-radius: 9px;
-				background-color: rgb(225, 225, 225);
+				background-color: rgb(220, 220, 220);
 				padding: 0.25em 0.45em;
 			}
 		}
@@ -47,7 +48,7 @@
 			margin-top: 1.2em;
 		}
 	}
-	&:nth-of-type(1) {
+	&:first-of-type {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}

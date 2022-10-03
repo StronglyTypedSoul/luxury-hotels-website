@@ -20,11 +20,12 @@ export const getAllPastes = async () => {
 	return responseHandler(response);
 };
 
-export const getPastesBatch = async (offset: number) => {
+export const getPastesBatch = async (offset: number, searchTerm: string) => {
 	const response = axios.get("/api/pastes", {
 		params: {
 			size: PASTES_BATCH_SIZE,
 			offset,
+			search: searchTerm,
 		},
 	});
 	return responseHandler(response);
