@@ -13,9 +13,11 @@ export async function getAllPastes(): Promise<IPasteModel[]> {
 	return pastes;
 }
 
-// Gets a pastes batch by size and offset
-export async function getPastesBatch(size: number, offset: number): Promise<IPasteModel[]> {
-	const pastes = await Paste.find({}).sort({ date: -1 }).skip(offset).limit(size);
+// Gets a pastes batch by size, offset and a search term
+export async function getPastesBatch(size: number, offset: number, search: string): Promise<IPasteModel[]> {
+	const searchRegex = new RegExp(search, "i");
+	const findQuery = search ? { $or: [{ title: searchRegex }, { content: searchRegex }, { author: searchRegex }] } : {};
+	const pastes = await Paste.find(findQuery).sort({ date: -1 }).skip(offset).limit(size);
 	return pastes;
 }
 

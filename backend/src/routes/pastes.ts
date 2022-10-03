@@ -6,9 +6,9 @@ const router = express.Router();
 
 // Get a pastes batch by size and offset
 router.get("/", validatePastesBatch(), validate, async (req: Request, res: Response) => {
-	const { size, offset } = req.query;
+	const { size, offset, search } = req.query;
 	try {
-		const pastes = await db.getPastesBatch(+size, +offset);
+		const pastes = await db.getPastesBatch(+size, +offset, String(search));
 		res.status(200).json(pastes);
 	} catch (err) {
 		console.log(err.message);
