@@ -3,19 +3,21 @@ import ReactTimeAgo from "react-time-ago";
 import { useRef, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import "./Paste.scss";
+import React from "react";
 
 interface PasteProps {
 	paste: IPaste;
+	ref?: (paste: IPaste) => void;
 }
 
-const Paste: React.FC<PasteProps> = ({ paste }) => {
+const Paste = React.forwardRef<HTMLDivElement, PasteProps>(({ paste }, ref) => {
 	const [showContent, setShowContent] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 
 	const { title, content, author, date, tags } = paste;
 
-	return (
-		<div className="paste">
+	const pasteBody = (
+		<>
 			<div className="header">
 				<div className="caption">
 					<span className="title">{title}</span>
@@ -46,8 +48,18 @@ const Paste: React.FC<PasteProps> = ({ paste }) => {
 			>
 				{content}
 			</div>
-		</div>
+		</>
 	);
-};
+
+	return ref ? (
+		<div ref={ref} className="paste">
+			{pasteBody}
+		</div>
+	) : (
+		<div className="paste">{pasteBody}</div>
+	);
+});
+
+Paste.displayName = "Paste";
 
 export default Paste;

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { responseHandler } from "./handlers";
 
+export const PASTES_BATCH_SIZE = 20;
+
 export interface IDashboardComponents {
 	totalPastes: number;
 	todayPastes: number;
@@ -15,5 +17,15 @@ export const getDashboardComponents = async () => {
 
 export const getAllPastes = async () => {
 	const response = axios.get("/api/pastes");
+	return responseHandler(response);
+};
+
+export const getPastesBatch = async (offset: number) => {
+	const response = axios.get("/api/pastes", {
+		params: {
+			size: PASTES_BATCH_SIZE,
+			offset,
+		},
+	});
 	return responseHandler(response);
 };

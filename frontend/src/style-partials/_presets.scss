@@ -3,9 +3,8 @@
 @import "variables";
 
 @mixin page {
-	height: calc(100vh - $navbar-height);
 	margin-top: $navbar-height;
-	padding: 2em;
+	padding: 2.5em;
 }
 
 @mixin feature {

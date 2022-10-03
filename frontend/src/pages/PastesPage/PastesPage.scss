@@ -4,4 +4,7 @@
 
 .pastes-page {
 	@include page;
+	.loader {
+		margin-top: 1em;
+	}
 }
