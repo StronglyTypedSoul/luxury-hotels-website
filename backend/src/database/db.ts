@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Paste, { IPasteModel } from "../models/paste";
+import { UTC_OFFSET } from "../constants/timezone";
 
 // Connects to the database
 export async function connect(): Promise<void> {
@@ -12,6 +13,12 @@ export async function getAllPastes(): Promise<IPasteModel[]> {
 	return pastes;
 }
 
+// Gets a pastes batch by size and offset
+export async function getPastesBatch(size: number, offset: number): Promise<IPasteModel[]> {
+	const pastes = await Paste.find({}).sort({ date: -1 }).skip(offset).limit(size);
+	return pastes;
+}
+
 // Gets the count of all pastes
 export async function getAllPastesCount(): Promise<number> {
 	const count = await Paste.countDocuments({});
@@ -20,7 +27,8 @@ export async function getAllPastesCount(): Promise<number> {
 
 // Gets the count of all pastes from today
 export async function getTodayPastesCount(): Promise<number> {
-	const today = new Date();
+	const date = new Date();
+	const today = new Date(date.setHours(date.getHours() + UTC_OFFSET));
 	today.setUTCHours(0, 0, 0, 0);
 	const count = await Paste.countDocuments({ date: { $gte: today } });
 	return count;

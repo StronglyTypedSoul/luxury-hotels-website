@@ -1,12 +1,14 @@
 import express, { Request, Response } from "express";
+import { validate, validatePastesBatch } from "../middleware/validator";
 import * as db from "../database/db";
 
 const router = express.Router();
 
-// Gets all the pastes
-router.get("/", async (req: Request, res: Response) => {
+// Get a pastes batch by size and offset
+router.get("/", validatePastesBatch(), validate, async (req: Request, res: Response) => {
+	const { size, offset } = req.query;
 	try {
-		const pastes = await db.getAllPastes();
+		const pastes = await db.getPastesBatch(+size, +offset);
 		res.status(200).json(pastes);
 	} catch (err) {
 		console.log(err.message);
