@@ -8,7 +8,7 @@ interface TotalPastesProps {
 const TotalPastes: React.FC<TotalPastesProps> = ({ totalPastes }) => {
 	return (
 		<div className="total-pastes">
-			{totalPastes ? (
+			{totalPastes !== undefined ? (
 				<>
 					<p>
 						A total of
