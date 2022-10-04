@@ -1,9 +1,9 @@
-import "./config/config";
+import "./config/env";
 import express from "express";
 import { Server, Socket } from "socket.io";
 import { json } from "body-parser";
 import apiRouter from "./routes/api";
-import * as db from "./database/db";
+import { dbConnection } from "./config/db";
 import { createServer } from "http";
 
 const PORT = +process.env.PORT;
@@ -15,7 +15,7 @@ const io = new Server(server);
 app.use(json());
 
 // Initialization of database and server
-db.connect()
+dbConnection()
 	.then(() => server.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
 	.catch((err) => console.log(err.message));
 
@@ -35,8 +35,9 @@ io.on("connection", (socket: Socket) => {
 				console.log("Received new pastes from scraper", data);
 				socket.broadcast.emit("pastes", data);
 			});
-			// Handling user socket logic
-		} else {
+		}
+		// Handling user socket logic
+		else {
 			//	set user online
 			// 	send new pastes to user
 		}

@@ -1,11 +1,5 @@
-import mongoose from "mongoose";
 import Paste, { IPasteModel } from "../models/paste";
 import { UTC_OFFSET } from "../constants/timezone";
-
-// Connects to the database
-export async function connect(): Promise<void> {
-	await mongoose.connect(process.env.DATABASE_URL);
-}
 
 // Gets all the pastes
 export async function getAllPastes(): Promise<IPasteModel[]> {
