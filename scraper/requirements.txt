@@ -3,3 +3,4 @@ pymongo
 bs4
 requests
 pysocks
+python-socketio[client]

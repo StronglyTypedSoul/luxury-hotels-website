@@ -6,5 +6,5 @@ def get_tor_content(url: str):
     session = requests.session()
     session.proxies["http"] = "socks5h://tor:9050"
     session.proxies["https"] = "socks5h://tor:9050"
-    response = session.get(url, timeout=15)
+    response = session.get(url, timeout=20)
     return response.content

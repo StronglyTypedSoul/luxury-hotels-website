@@ -8,21 +8,25 @@ from analyzer import tag_pastes
 from db import find_paste_by_content, insert_paste
 from torRequest import get_tor_content
 from websites.darkWebPaste import url
+import socketio
 
 
 # Insert pastes to the database if they do not already exist
 def insert_to_db(pastes):
+    new_pastes = []
     for paste in pastes:
         search_result = find_paste_by_content(paste["content"])
         if search_result:
             print(f"duplicate of paste {search_result['_id']} titled {paste['title']}")
         else:
             insert_paste(paste["title"], paste["content"], paste["author"], paste["date"], paste["tags"])
+            new_pastes.append(paste)
             print(f"inserted a new paste titled {paste['title']}")
+    return new_pastes
 
 
-# Validating the connection to tor browser
-def validate_connection():
+# Establishing the connection to tor browser
+def establish_tor_connection():
     print("Establishing connection with TOR")
     connection = False
     while not connection:
@@ -37,20 +41,40 @@ def validate_connection():
     return
 
 
+# Establishing the connection to socket server
+def establish_socket_connection(sio):
+    print("Establishing socket connection")
+    connection = False
+    while not connection:
+        try:
+            sio.connect("http://backend:5000")
+            connection = True
+        except:
+            print("Failed to connect, trying again...")
+            pass
+        time.sleep(5)
+    print("Connection established")
+    return
+
+
 # The main application loop, attempting to scrape the website every 2 minutes
 def main():
-    validate_connection()
+    establish_tor_connection()
+    sio = socketio.Client()
+    establish_socket_connection(sio)
     while True:
         try:
             print("Starting scraping process")
             pastes = scrape_pastes()
             tag_pastes(pastes)
-            insert_to_db(pastes)
-            print("Scraping process succeeded")
+            new_pastes = insert_to_db(pastes)
+            print("Scraping process succeeded, sleeping...")
+            compact_new_pastes = list(map(lambda paste: {"title": paste["title"], "author": paste["author"], "tags": paste["tags"]}, new_pastes))
+            sio.emit("new_pastes", compact_new_pastes)
+            time.sleep(120)
         except Exception as e:
             print(e)
-            print("Scraping process failed")
-        time.sleep(120)
+            print("Scraping process failed, trying again...")
 
 
 if __name__ == "__main__":
