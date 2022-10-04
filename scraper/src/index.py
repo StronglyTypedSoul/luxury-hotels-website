@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os
 import time
 from scraper import scrape_pastes
 from analyzer import tag_pastes
@@ -40,12 +41,12 @@ def establish_tor_connection():
 
 
 # Establishing the connection to socket server
-def establish_socket_connection(sio):
+def establish_socket_connection(sio: socketio.Client):
     print("Establishing socket connection")
     connection = False
     while not connection:
         try:
-            sio.connect("http://backend:5000")
+            sio.connect(f"http://backend:5000?token={os.getenv('SOCKET_TOKEN')}")
             connection = True
         except:
             print("Failed to connect, trying again...")

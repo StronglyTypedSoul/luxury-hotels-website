@@ -1,6 +1,5 @@
 import "./config/config";
-import path from "path";
-import express, { Request, Response } from "express";
+import express from "express";
 import { Server, Socket } from "socket.io";
 import { json } from "body-parser";
 import apiRouter from "./routes/api";
@@ -13,15 +12,6 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-io.on("connection", (socket: Socket) => {
-	const connections = [...io.sockets.sockets].length;
-	console.log(`User joined, ${connections} connected`);
-	socket.on("disconnect", () => {
-		const connections = [...io.sockets.sockets].length;
-		console.log(`User left, ${connections} connected`);
-	});
-});
-
 app.use(json());
 
 // Initialization of database and server
@@ -32,13 +22,29 @@ db.connect()
 // Routes to api endpoints
 app.use("/api", apiRouter);
 
-// Serves static files if in production mode
-if (process.env.NODE_ENV === "production") {
-	const buildDirectory = path.join(__dirname, "../build");
+// Handling socket communication
+io.on("connection", (socket: Socket) => {
+	const connections = [...io.sockets.sockets].length;
+	console.log(`User joined, ${connections} connected`);
 
-	app.use(express.static(buildDirectory));
-
-	app.get("*", (req: Request, res: Response) => {
-		res.sendFile(path.join(buildDirectory, "index.html"));
+	const token = socket.handshake.query.token;
+	if (token) {
+		// Handling scraper socket logic
+		if (token === process.env.SOCKET_SCRAPER_TOKEN) {
+			socket.on("new_pastes", (data) => {
+				console.log("Received new pastes from scraper", data);
+				socket.broadcast.emit("pastes", data);
+			});
+			// Handling user socket logic
+		} else {
+			//	set user online
+			// 	send new pastes to user
+		}
+	} else {
+		// Creating a new user and sending his token
+	}
+	socket.on("disconnect", () => {
+		const connections = [...io.sockets.sockets].length;
+		console.log(`User left, ${connections} connected`);
 	});
-}
+});
