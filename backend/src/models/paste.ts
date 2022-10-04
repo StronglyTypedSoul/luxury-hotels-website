@@ -6,6 +6,7 @@ export interface IPaste {
 	author: string;
 	date: Date;
 	tags: string[];
+	scrapedAt: Date;
 }
 
 export interface IPasteModel extends IPaste, Document {}
@@ -17,6 +18,7 @@ const PasteSchema = new Schema(
 		author: { type: String, required: true },
 		date: { type: Date, required: true },
 		tags: { type: Array<String>, required: true },
+		scrapedAt: { type: Date, required: true },
 	},
 	{ collection: "pastes" }
 );

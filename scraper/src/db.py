@@ -1,6 +1,7 @@
 import os
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timedelta
+from constants.timezone import UTC_OFFSET
 
 client = MongoClient(os.getenv("DATABASE_URL"))
 
@@ -10,7 +11,8 @@ pastes = db.pastes
 
 # Inserts a paste to the pastes collection
 def insert_paste(title: str, content: str, author: str, date: datetime, tags: list[str]):
-    paste = {"title": title, "content": content, "author": author, "date": date, "tags": tags}
+    now = datetime.now() + timedelta(hours=UTC_OFFSET)
+    paste = {"title": title, "content": content, "author": author, "date": date, "tags": tags, "scrapedAt": now}
     pastes.insert_one(paste)
 
 

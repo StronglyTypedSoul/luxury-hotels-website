@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup, Tag
 from datetime import datetime, timedelta
+from constants.timezone import UTC_OFFSET
 from torRequest import get_tor_content
 
 url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/lists"
@@ -22,7 +23,8 @@ def calculate_paste_date(time_quantity: int, time_unit: str):
     if time_unit[-1] != "s":
         time_unit += "s"
     delta[time_unit] = int(time_quantity)
-    date = datetime.today() - timedelta(minutes=delta["minutes"], hours=delta["hours"], days=delta["days"], weeks=delta["weeks"])
+    now = datetime.now() + timedelta(hours=UTC_OFFSET)
+    date = now - timedelta(minutes=delta["minutes"], hours=delta["hours"], days=delta["days"], weeks=delta["weeks"])
     return date
 
 

@@ -16,9 +16,7 @@ def insert_to_db(pastes):
     new_pastes = []
     for paste in pastes:
         search_result = find_paste_by_content(paste["content"])
-        if search_result:
-            print(f"duplicate of paste {search_result['_id']} titled {paste['title']}")
-        else:
+        if not search_result:
             insert_paste(paste["title"], paste["content"], paste["author"], paste["date"], paste["tags"])
             new_pastes.append(paste)
             print(f"inserted a new paste titled {paste['title']}")
