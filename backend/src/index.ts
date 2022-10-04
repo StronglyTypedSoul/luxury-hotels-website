@@ -5,7 +5,7 @@ import { Server, Socket } from "socket.io";
 import { json } from "body-parser";
 import { dbConnection } from "./config/db";
 import apiRouter from "./routes/api";
-import { createUser, userConnection } from "./controllers/users";
+import { createUser, userConnection, getNewPastesForUser } from "./controllers/users";
 
 const PORT = +process.env.PORT;
 const app = express();
@@ -25,31 +25,35 @@ app.use("/api", apiRouter);
 
 // Handling socket communication
 io.on("connection", async (socket: Socket) => {
+	let token = String(socket.handshake.query.token);
+
 	const connections = [...io.sockets.sockets].length;
 	console.log(`User joined, ${connections} connected`);
+	console.log("Token: ", token);
 
-	let token = String(socket.handshake.query.token);
-	console.log("token", token);
 	if (token) {
 		// Handling scraper socket logic
 		if (token === process.env.SOCKET_SCRAPER_TOKEN) {
 			console.log("Scraper socket connected");
 			socket.on("new_pastes", (data) => {
 				console.log("Received new pastes from scraper", data);
-				socket.broadcast.emit("pastes", data);
+				socket.broadcast.emit("scraping_done", data);
 			});
 		}
 		// Handling user socket logic
 		else {
-			//	set user online
+			// Sending the user all pastes that were scraped after user's last time online
+			const newPastes = await getNewPastesForUser(token);
+			socket.emit("new_pastes", newPastes);
+			// Setting user online
 			await userConnection(token, true);
-			// 	send new pastes to user
 		}
 	} else {
 		token = String(await createUser());
 		socket.emit("token", token);
 	}
 	socket.on("disconnect", async () => {
+		// Setting user offline
 		await userConnection(String(token), false);
 		const connections = [...io.sockets.sockets].length;
 		console.log(`User left, ${connections} connected`);

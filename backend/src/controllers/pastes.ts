@@ -11,13 +11,19 @@ export async function getAllPastes(): Promise<IPasteModel[]> {
 export async function getPastesBatch(size: number, offset: number, search: string): Promise<IPasteModel[]> {
 	const searchRegex = new RegExp(search, "i");
 	const findQuery = search ? { $or: [{ title: searchRegex }, { content: searchRegex }, { author: searchRegex }] } : {};
-	const pastes = await Paste.find(findQuery).sort({ date: -1 }).skip(offset).limit(size);
+	const pastes = await Paste.find(findQuery).sort({ date: -1 }).skip(offset).limit(size).exec();
+	return pastes;
+}
+
+// Gets all the pastes that were scraped after a given time
+export async function getPastesScrapedAfter(time: Date): Promise<IPasteModel[]> {
+	const pastes = await Paste.find({ scrapedAt: { $gte: time } }).exec();
 	return pastes;
 }
 
 // Gets the count of all pastes
 export async function getAllPastesCount(): Promise<number> {
-	const count = await Paste.countDocuments({});
+	const count = await Paste.countDocuments({}).exec();
 	return count;
 }
 
@@ -26,7 +32,7 @@ export async function getTodayPastesCount(): Promise<number> {
 	const date = new Date();
 	const today = new Date(date.setHours(date.getHours() + UTC_OFFSET));
 	today.setUTCHours(0, 0, 0, 0);
-	const count = await Paste.countDocuments({ date: { $gte: today } });
+	const count = await Paste.countDocuments({ date: { $gte: today } }).exec();
 	return count;
 }
 
@@ -48,7 +54,7 @@ export async function getTagsByQuantity(): Promise<{ sum: number; tag: string }[
 				sum: 1,
 			},
 		},
-	]);
+	]).exec();
 	return tags;
 }
 
@@ -83,6 +89,6 @@ export async function getTopAuthors(): Promise<{ sum: number; name: string }[]> 
 		{
 			$limit: 5,
 		},
-	]);
+	]).exec();
 	return authors;
 }
