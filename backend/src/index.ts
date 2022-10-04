@@ -1,10 +1,11 @@
 import "./config/env";
 import express from "express";
+import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { json } from "body-parser";
-import apiRouter from "./routes/api";
 import { dbConnection } from "./config/db";
-import { createServer } from "http";
+import apiRouter from "./routes/api";
+import { createUser, userConnection } from "./controllers/users";
 
 const PORT = +process.env.PORT;
 const app = express();
@@ -23,14 +24,16 @@ dbConnection()
 app.use("/api", apiRouter);
 
 // Handling socket communication
-io.on("connection", (socket: Socket) => {
+io.on("connection", async (socket: Socket) => {
 	const connections = [...io.sockets.sockets].length;
 	console.log(`User joined, ${connections} connected`);
 
-	const token = socket.handshake.query.token;
+	let token = String(socket.handshake.query.token);
+	console.log("token", token);
 	if (token) {
 		// Handling scraper socket logic
 		if (token === process.env.SOCKET_SCRAPER_TOKEN) {
+			console.log("Scraper socket connected");
 			socket.on("new_pastes", (data) => {
 				console.log("Received new pastes from scraper", data);
 				socket.broadcast.emit("pastes", data);
@@ -39,12 +42,15 @@ io.on("connection", (socket: Socket) => {
 		// Handling user socket logic
 		else {
 			//	set user online
+			await userConnection(token, true);
 			// 	send new pastes to user
 		}
 	} else {
-		// Creating a new user and sending his token
+		token = String(await createUser());
+		socket.emit("token", token);
 	}
-	socket.on("disconnect", () => {
+	socket.on("disconnect", async () => {
+		await userConnection(String(token), false);
 		const connections = [...io.sockets.sockets].length;
 		console.log(`User left, ${connections} connected`);
 	});
