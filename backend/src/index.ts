@@ -32,7 +32,13 @@ app.use("/api", apiRouter);
 })();
 
 // Initialization of RabbitMQ
-rabbitmqConnection().then(async (channel) => {
-	await initRmqConsumer(channel, io);
-	console.log("Connected to rabbitmq");
-});
+setTimeout(async () => {
+	rabbitmqConnection()
+		.then(async (channel) => {
+			await initRmqConsumer(channel, io);
+			console.log("Connected to rabbitmq");
+		})
+		.catch((err) => {
+			console.log(err.message);
+		});
+}, 60000);

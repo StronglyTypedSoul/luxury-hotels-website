@@ -33,6 +33,12 @@ COPY --from=build /usr/src/app/package*.json ./
 
 RUN npm install --only=prod
 
+ENV NODE_ENV=development
+ENV PORT=5000
+ENV DATABASE_URL=mongodb://mongo:27017/darknet
+ENV RABBITMQ_HOST=rabbitmq
+ENV RABBITMQ_PASTES_QUEUE=pastes
+
 COPY --from=build /usr/src/app/build ./
 
 CMD ["npm","start"]

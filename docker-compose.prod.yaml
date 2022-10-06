@@ -27,8 +27,9 @@ services:
     hostname: frontend
     build:
       context: ./frontend
+      dockerfile: Dockerfile.prod
     ports:
-      - 80:3000
+      - 80:80
     volumes:
       - ./frontend/:/usr/src/app
       - /usr/src/app/node_modules
