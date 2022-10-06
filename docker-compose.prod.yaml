@@ -13,8 +13,6 @@ services:
     hostname: backend
     build:
       context: ./backend
-      target: development
-    command: npm run dev-watch
     ports:
       - 5000:5000
     volumes:
@@ -29,10 +27,8 @@ services:
     hostname: frontend
     build:
       context: ./frontend
-      target: development
-    command: npm start
     ports:
-      - 3000:3000
+      - 80:3000
     volumes:
       - ./frontend/:/usr/src/app
       - /usr/src/app/node_modules
