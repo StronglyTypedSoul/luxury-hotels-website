@@ -15,9 +15,6 @@ services:
       context: ./backend
     ports:
       - 5000:5000
-    volumes:
-      - ./backend/:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - mongo
       - rabbitmq
@@ -30,9 +27,6 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 80:80
-    volumes:
-      - ./frontend/:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - backend
   # MongoDB Database
@@ -57,6 +51,3 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    volumes:
-      - ~/Documents/data/rabbitmq/data/:/var/lib/rabbitmq
-      - ~/Documents/data/rabbitmq/log/:/var/log/rabbitmq

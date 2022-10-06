@@ -39,6 +39,7 @@ setTimeout(async () => {
 			console.log("Connected to rabbitmq");
 		})
 		.catch((err) => {
+			console.log("Failed to connect to RabbitMQ");
 			console.log(err.message);
 		});
 }, 60000);

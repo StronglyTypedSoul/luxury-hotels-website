@@ -25,22 +25,20 @@ COPY --from=development /usr/src/app ./
 RUN npm run build
 
 # Stage 3 - Serving the app
-FROM node:16.17.0-alpine
+FROM node:16.17.0-alpine as production
 
 WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/package*.json ./
 
-RUN npm install --only=prod
+RUN npm install --omit=dev
 
-COPY --from=build /usr/src/app/build ./
+COPY --from=build /usr/src/app/build ./build
 
 ENV NODE_ENV=development
 ENV PORT=5000
 ENV DATABASE_URL=mongodb://mongo:27017/darknet
 ENV RABBITMQ_HOST=rabbitmq
 ENV RABBITMQ_PASTES_QUEUE=pastes
-
-COPY --from=build /usr/src/app/build ./
 
 CMD ["npm","start"]
