@@ -9,7 +9,8 @@ const envSchema = joi
 		NODE_ENV: joi.string().valid("production", "development").required(),
 		PORT: joi.number().positive().required(),
 		DATABASE_URL: joi.string().required(),
-		SOCKET_SCRAPER_TOKEN: joi.string().required(),
+		RABBITMQ_HOST: joi.string().required(),
+		RABBITMQ_PASTES_QUEUE: joi.string().required(),
 	})
 	.unknown();
 

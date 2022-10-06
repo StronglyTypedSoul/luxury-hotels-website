@@ -9,7 +9,7 @@ from analyzer import tag_pastes
 from db import find_paste_by_content, insert_paste
 from torRequest import get_tor_content
 from websites.darkWebPaste import url
-import socketio
+from rabbitmq import publish_pastes
 
 
 # Insert pastes to the database if they do not already exist
@@ -40,27 +40,9 @@ def establish_tor_connection():
     return
 
 
-# Establishing the connection to socket server
-def establish_socket_connection(sio: socketio.Client):
-    print("Establishing socket connection")
-    connection = False
-    while not connection:
-        try:
-            sio.connect(f"http://backend:5000?token={os.getenv('SOCKET_TOKEN')}")
-            connection = True
-        except:
-            print("Failed to connect, trying again...")
-            pass
-        time.sleep(5)
-    print("Connection established")
-    return
-
-
 # The main application loop, attempting to scrape the website every 2 minutes
 def main():
     establish_tor_connection()
-    sio = socketio.Client()
-    establish_socket_connection(sio)
     while True:
         try:
             print("Starting scraping process")
@@ -69,7 +51,7 @@ def main():
             new_pastes = insert_to_db(pastes)
             print("Scraping process succeeded, sleeping...")
             compact_new_pastes = list(map(lambda paste: {"title": paste["title"], "author": paste["author"], "tags": paste["tags"]}, new_pastes))
-            sio.emit("new_pastes", compact_new_pastes)
+            publish_pastes(compact_new_pastes)
             time.sleep(120)
         except Exception as e:
             print(e)
