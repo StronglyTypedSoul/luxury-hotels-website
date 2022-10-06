@@ -12,6 +12,8 @@ services:
     hostname: backend
     build:
       context: ./backend
+      target: development
+    command: npm run dev-watch
     ports:
       - 5000:5000
     volumes:

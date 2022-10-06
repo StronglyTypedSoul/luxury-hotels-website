@@ -1,18 +1,38 @@
-FROM node:16.17.0-alpine
+# Stage 1 - Installing app dependencies
+FROM node:16.17.0-alpine as development
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
-
-COPY . .
 
 ENV NODE_ENV=development
 ENV PORT=5000
 ENV DATABASE_URL=mongodb://mongo:27017/darknet
-ENV SOCKET_SCRAPER_TOKEN=af7c1fe6-d669-414e-b066-e9733f0de7a8
+ENV RABBITMQ_HOST=rabbitmq
+ENV RABBITMQ_PASTES_QUEUE=pastes
 
-EXPOSE 5000
+COPY . .
 
-CMD ["npm", "run", "dev"]
+# Stage 2 - Building the app
+FROM node:16.17.0-alpine as build
+
+WORKDIR /usr/src/app
+
+COPY --from=development /usr/src/app ./
+
+RUN npm run build
+
+# Stage 3 - Serving the app
+FROM node:16.17.0-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/package*.json ./
+
+RUN npm install --only=prod
+
+COPY --from=build /usr/src/app/build ./
+
+CMD ["npm","start"]
