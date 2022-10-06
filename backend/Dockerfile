@@ -33,6 +33,8 @@ COPY --from=build /usr/src/app/package*.json ./
 
 RUN npm install --only=prod
 
+COPY --from=build /usr/src/app/build ./
+
 ENV NODE_ENV=development
 ENV PORT=5000
 ENV DATABASE_URL=mongodb://mongo:27017/darknet
