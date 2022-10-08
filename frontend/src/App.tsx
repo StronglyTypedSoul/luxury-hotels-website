@@ -21,6 +21,7 @@ const App: React.FC = () => {
 		});
 		return () => {
 			socket.off("token");
+			socket.off("scraping_done");
 		};
 	}, []);
 
