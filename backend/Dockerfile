@@ -7,13 +7,13 @@ COPY package*.json ./
 
 RUN npm install
 
+COPY . .
+
 ENV NODE_ENV=development
 ENV PORT=5000
 ENV DATABASE_URL=mongodb://mongo:27017/darknet
 ENV RABBITMQ_HOST=rabbitmq
 ENV RABBITMQ_PASTES_QUEUE=pastes
-
-COPY . .
 
 # Stage 2 - Building the app
 FROM node:16.17.0-alpine as build

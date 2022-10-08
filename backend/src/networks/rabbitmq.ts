@@ -6,9 +6,9 @@ export async function initRmqConsumer(channel: Channel, io: Server): Promise<voi
 	await channel.assertQueue(queue);
 	channel.consume(queue, (msg) => {
 		if (msg !== null) {
-			const pastes = JSON.parse(msg.content.toString());
-			console.log("Received new pastes from scraper:", pastes);
-			io.emit("scraping_done", pastes);
+			const data = JSON.parse(msg.content.toString());
+			console.log("Received new pastes from scraper:", data.pastes);
+			io.emit("scraping_done", data);
 			channel.ack(msg);
 		}
 	});

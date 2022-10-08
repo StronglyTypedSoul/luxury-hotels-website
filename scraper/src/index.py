@@ -51,11 +51,13 @@ def main():
             new_pastes = insert_to_db(pastes)
             print("Scraping process succeeded, sleeping...")
             compact_new_pastes = list(map(lambda paste: {"title": paste["title"], "author": paste["author"], "tags": paste["tags"]}, new_pastes))
-            publish_pastes(compact_new_pastes)
-            time.sleep(120)
+            publish_pastes({"error": False, "pastes": compact_new_pastes})
         except Exception as e:
             print(e)
             print("Scraping process failed, trying again...")
+            publish_pastes({"error": True, "pastes": []})
+        finally:
+            time.sleep(120)
 
 
 if __name__ == "__main__":

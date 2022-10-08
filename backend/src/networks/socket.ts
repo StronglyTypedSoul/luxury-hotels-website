@@ -7,6 +7,7 @@ export async function initSocketConnectionListener(io: Server): Promise<void> {
 		const connections = [...io.sockets.sockets].length;
 		console.log(`User joined, ${connections} connected`);
 		console.log(token ? `Token: ${token}` : "No token");
+
 		if (token) {
 			// Sending the user all pastes that were scraped after user's last time online
 			const newPastes = await getNewPastesForUser(token);
