@@ -13,13 +13,8 @@ const App: React.FC = () => {
 		socket.on("token", (data) => {
 			localStorage.setItem("token", data);
 		});
-		socket.on("scraping_done", (data) => {
-			console.log("SCRAPING DONE");
-			console.log(data);
-		});
 		return () => {
 			socket.off("token");
-			socket.off("scraping_done");
 		};
 	}, []);
 

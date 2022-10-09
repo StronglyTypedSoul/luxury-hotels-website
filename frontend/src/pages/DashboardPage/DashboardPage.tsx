@@ -5,14 +5,25 @@ import TodayPastes from "../../components/TodayPastes/TodayPastes";
 import TopAuthors from "../../components/TopAuthors/TopAuthors";
 import TagsDiagram from "../../components/TagsDiagram/TagsDiagram";
 import { IDashboardComponents, getDashboardComponents } from "../../api/endpoints";
+import { useSocket } from "../../context/SocketContext";
 
 const DashboardPage: React.FC = () => {
 	const [dashboardComponents, setDashboardComponents] = useState<IDashboardComponents | undefined>(undefined);
+	const socket = useSocket();
 
 	useEffect(() => {
-		getDashboardComponents().then((dashboardComponents) => {
-			setDashboardComponents(dashboardComponents);
+		socket.on("scraping_done", async (data) => {
+			if (!data.error && data.pastes.length > 0) {
+				const newDashboardComponents = await getDashboardComponents();
+				setDashboardComponents(newDashboardComponents);
+			}
 		});
+		getDashboardComponents().then((newDashboardComponents) => {
+			setDashboardComponents(newDashboardComponents);
+		});
+		return () => {
+			socket.off("scraping_done");
+		};
 	}, []);
 
 	return (
