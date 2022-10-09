@@ -1,19 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import Paste from "../../components/Paste/Paste";
+import useDidMount from "../../hooks/useDidMount";
 import usePastes from "../../hooks/usePastes";
 import "./PastesPage.scss";
 
 const PastesPage: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [firstRender, setFirstRender] = useState(true);
+	const isFirstRender = useDidMount();
 
 	const { pastes, isLoading, hasMorePastes, fetchMorePastes, searchPastes } = usePastes();
 
 	useEffect(() => {
-		if (firstRender) {
-			setFirstRender(false);
-		} else {
+		if (!isFirstRender) {
 			const timer = setTimeout(() => searchPastes(searchTerm), 400);
 			return () => clearTimeout(timer);
 		}
