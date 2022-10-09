@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import PastesPage from "./pages/PastesPage/PastesPage";
 import { useEffect } from "react";
-import { useSocket } from "./context/SocketContext";
+import useSocket from "./hooks/useSocket";
 
 const App: React.FC = () => {
 	const socket = useSocket();

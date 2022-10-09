@@ -5,7 +5,7 @@ import TodayPastes from "../../components/TodayPastes/TodayPastes";
 import TopAuthors from "../../components/TopAuthors/TopAuthors";
 import TagsDiagram from "../../components/TagsDiagram/TagsDiagram";
 import { IDashboardComponents, getDashboardComponents } from "../../api/endpoints";
-import { useSocket } from "../../context/SocketContext";
+import useSocket from "../../hooks/useSocket";
 
 const DashboardPage: React.FC = () => {
 	const [dashboardComponents, setDashboardComponents] = useState<IDashboardComponents | undefined>(undefined);
