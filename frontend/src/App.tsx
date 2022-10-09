@@ -4,13 +4,11 @@ import Navbar from "./components/Navbar/Navbar";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import PastesPage from "./pages/PastesPage/PastesPage";
 import { useEffect } from "react";
-import { io } from "socket.io-client";
-
-const socket = io({
-	query: { token: localStorage.token ? localStorage.token : "" },
-});
+import { useSocket } from "./context/SocketContext";
 
 const App: React.FC = () => {
+	const socket = useSocket();
+
 	useEffect(() => {
 		socket.on("token", (data) => {
 			localStorage.setItem("token", data);
