@@ -16,8 +16,9 @@ export async function getPastesBatch(size: number, offset: number, search: strin
 }
 
 // Gets all the pastes that were scraped after a given time
-export async function getPastesScrapedAfter(time: Date): Promise<IPasteModel[]> {
-	const pastes = await Paste.find({ scrapedAt: { $gte: time } }).exec();
+export async function getPastesScrapedAfter(time: Date, compact: boolean): Promise<IPasteModel[]> {
+	const projection = compact ? { title: 1, author: 1, tags: 1 } : {};
+	const pastes = await Paste.find({ scrapedAt: { $gte: time } }, projection).exec();
 	return pastes;
 }
 

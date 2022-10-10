@@ -24,6 +24,6 @@ export async function userConnection(id: string, isOnline: boolean): Promise<voi
 export async function getNewPastesForUser(id: string): Promise<IPasteModel[]> {
 	const user = await User.findById(id).exec();
 	const { lastOnline } = user;
-	const pastes = await getPastesScrapedAfter(lastOnline);
+	const pastes = await getPastesScrapedAfter(lastOnline, true);
 	return pastes;
 }

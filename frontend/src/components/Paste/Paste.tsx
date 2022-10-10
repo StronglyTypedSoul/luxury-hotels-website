@@ -1,4 +1,4 @@
-import IPaste from "../../interfaces/paste";
+import { IPaste } from "../../interfaces/paste";
 import ReactTimeAgo from "react-time-ago";
 import { useRef, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";

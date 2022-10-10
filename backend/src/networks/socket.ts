@@ -11,7 +11,7 @@ export async function initSocketConnectionListener(io: Server): Promise<void> {
 		if (token) {
 			// Sending the user all pastes that were scraped after user's last time online
 			const newPastes = await getNewPastesForUser(token);
-			socket.emit("new_pastes", newPastes);
+			if (newPastes.length > 0) socket.emit("new_pastes", newPastes);
 			// Setting user online
 			await userConnection(token, true);
 		} else {

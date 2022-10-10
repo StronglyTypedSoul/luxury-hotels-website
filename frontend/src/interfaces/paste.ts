@@ -1,4 +1,4 @@
-interface IPaste {
+export interface IPaste {
 	_id: string;
 	title: string;
 	content: string;
@@ -7,4 +7,8 @@ interface IPaste {
 	tags: string[];
 }
 
-export default IPaste;
+export interface ICompactPaste {
+	title: string;
+	author: string;
+	tags: string[];
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPastesBatch, PASTES_BATCH_SIZE } from "../api/endpoints";
-import IPaste from "../interfaces/paste";
+import { IPaste } from "../interfaces/paste";
 
 const usePastes = () => {
 	const [pastes, setPastes] = useState<IPaste[]>([]);
