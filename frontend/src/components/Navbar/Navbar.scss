@@ -37,8 +37,38 @@
 		}
 	}
 	.notifications {
+		position: relative;
 		font-size: 1.8rem;
 		color: $navbar-second-color;
 		cursor: pointer;
+		.notifications-counter {
+			user-select: none;
+			@include flex(row, center, center);
+			@include size(18px, 18px);
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size: 0.65rem;
+			border-radius: 50%;
+			background-color: black;
+			transform: translate(30%, -30%);
+		}
+		.notifications-container {
+			position: absolute;
+			background-color: lightgray;
+			border-radius: 8px;
+			font-size: 0.9rem;
+			right: 0;
+			margin-top: 0.9em;
+			width: 200px;
+			color: black;
+			.notification {
+				padding: 1em;
+				border-bottom: 1px solid gray;
+				&:last-of-type {
+					border-bottom: 0;
+				}
+			}
+		}
 	}
 }
