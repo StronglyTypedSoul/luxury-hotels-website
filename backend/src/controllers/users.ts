@@ -1,8 +1,14 @@
-import User from "../models/user";
+import User, { IUserModel } from "../models/user";
 import { UTC_OFFSET } from "../constants/timezone";
 import { Types } from "mongoose";
 import { IPasteModel } from "models/paste";
 import { getPastesScrapedAfter } from "./pastes";
+
+// Getting a user by id
+export async function getUserById(id: string): Promise<IUserModel> {
+	if (!Types.ObjectId.isValid(id)) return undefined;
+	return await User.findById(id).exec();
+}
 
 // Creates a new user
 export async function createUser(): Promise<Types.ObjectId> {
@@ -21,8 +27,7 @@ export async function userConnection(id: string, isOnline: boolean): Promise<voi
 }
 
 // Getting all pastes that were scraped after a user's last time online
-export async function getNewPastesForUser(id: string): Promise<IPasteModel[]> {
-	const user = await User.findById(id).exec();
+export async function getNewPastesForUser(user: IUserModel): Promise<IPasteModel[]> {
 	const { lastOnline } = user;
 	const pastes = await getPastesScrapedAfter(lastOnline, true);
 	return pastes;
