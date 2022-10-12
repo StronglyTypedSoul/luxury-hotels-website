@@ -5,6 +5,14 @@
 @mixin page {
 	margin-top: $navbar-height;
 	padding: 2.5em;
+	@media only screen and (max-height: $tablet-height) {
+		margin-top: $navbar-height-small;
+		padding: 1.2em;
+	}
+	@media only screen and (max-width: $mobile-width) {
+		margin-top: $navbar-height-small;
+		padding: 0.9em;
+	}
 }
 
 @mixin feature {
@@ -15,4 +23,8 @@
 	background-color: $feature-color;
 	box-shadow: 0 0 10px 2px rgba($color: #000000, $alpha: 0.4);
 	overflow: hidden;
+	@media only screen and (max-width: $mobile-width) {
+		font-size: 1.1rem;
+		padding: 0.5em;
+	}
 }

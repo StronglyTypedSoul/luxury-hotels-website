@@ -7,3 +7,19 @@
 		font-weight: bold;
 	}
 }
+
+@media only screen and (max-height: $tablet-height) {
+	.total-pastes {
+		.count {
+			font-size: 2.5rem;
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.total-pastes {
+		.count {
+			font-size: 2.1rem;
+		}
+	}
+}

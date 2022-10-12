@@ -29,3 +29,44 @@
 		}
 	}
 }
+
+@media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
+	.dashboard-page {
+		height: calc(100vh - $navbar-height-small);
+		.features-container {
+			gap: 15px;
+		}
+	}
+}
+
+@media only screen and (max-width: $tablet-width) {
+	.dashboard-page {
+		.features-container {
+			grid-template: repeat(6, minmax(0, 1fr)) / repeat(9, minmax(0, 1fr));
+			grid-template-areas:
+				"total-pastes total-pastes total-pastes today-pastes today-pastes today-pastes top-authors top-authors top-authors"
+				"total-pastes total-pastes total-pastes today-pastes today-pastes today-pastes top-authors top-authors top-authors"
+				"tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram top-authors top-authors top-authors"
+				"tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram top-authors top-authors top-authors"
+				"tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram top-authors top-authors top-authors"
+				"tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram tags-diagram top-authors top-authors top-authors";
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.dashboard-page {
+		.features-container {
+			grid-template: repeat(5, minmax(0, 1fr)) / repeat(2, minmax(0, 1fr));
+			grid-template-areas:
+				"total-pastes today-pastes"
+				"tags-diagram tags-diagram"
+				"tags-diagram tags-diagram"
+				"top-authors top-authors"
+				"top-authors top-authors";
+		}
+		.features-container {
+			gap: 10px;
+		}
+	}
+}

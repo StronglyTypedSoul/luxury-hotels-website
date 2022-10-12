@@ -17,3 +17,27 @@
 		}
 	}
 }
+
+@media only screen and (max-width: $tablet-width), (max-height: $tablet-height) {
+	.top-authors {
+		h4 {
+			margin-bottom: 0.4em;
+			font-size: 1.85rem;
+		}
+		p {
+			margin: 0.3em 0;
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.top-authors {
+		h4 {
+			margin-bottom: 0.4em;
+			font-size: 1.7rem;
+		}
+		p {
+			margin: 0.3em 0;
+		}
+	}
+}

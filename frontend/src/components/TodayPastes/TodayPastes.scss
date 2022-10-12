@@ -11,3 +11,25 @@
 		font-weight: bold;
 	}
 }
+
+@media only screen and (max-height: $tablet-height) {
+	.today-pastes {
+		.count {
+			font-size: 2.5rem;
+		}
+		.rate {
+			font-size: 1.5rem;
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.today-pastes {
+		.count {
+			font-size: 2.1rem;
+		}
+		.rate {
+			font-size: 1.3rem;
+		}
+	}
+}
