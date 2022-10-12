@@ -27,12 +27,12 @@ export async function initSocketConnectionListener(io: Server): Promise<void> {
 			socket.emit("token", token);
 		}
 		// Setting user offline
-		socket.on("disconnect", () => socketDisconnectListener(io, token));
+		socket.on("disconnect", () => socketUserDisconnect(io, token));
 	});
 }
 
 // Setting user offline
-async function socketDisconnectListener(io: Server, token: string): Promise<void> {
+async function socketUserDisconnect(io: Server, token: string): Promise<void> {
 	await userConnection(token, false);
 	const connections = [...io.sockets.sockets].length;
 	console.log(`User left, ${connections} connected`);

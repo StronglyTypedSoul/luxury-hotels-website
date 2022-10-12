@@ -10,7 +10,7 @@ const TopAuthors: React.FC<TopAuthorsProps> = ({ topAuthors }) => {
 		<div className="top-authors">
 			{topAuthors ? (
 				<>
-					<h4>Most active authors</h4>
+					<h4>Most Active Authors</h4>
 					{topAuthors.map((author, index) => {
 						return (
 							<p key={author.name}>
