@@ -15,7 +15,25 @@ The paste site is scraped from Tor browser.
 The API server and the python scraper act as microservices and communicate via RabbitMQ.  
 The entire application is dockerized using docker-compose.
 
+---
+
 ## Live Application
 
 Deployed on an AWS EC2 instance.  
 http://darkweb-scraper.tk
+
+---
+
+## Run locally
+
+In the root folder run:
+
+```
+docker-compose up
+```
+
+Note: it might take some time for all the container to build.
+
+When all the containers are running, go to <a href="http://localhost:3000">localhost:3000</a>.
+
+You will then have to wait for the first scrape to complete before any data will be presented in the dashboard.
