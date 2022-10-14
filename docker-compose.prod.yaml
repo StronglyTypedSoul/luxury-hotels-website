@@ -45,9 +45,8 @@ services:
       - 9050:9050
   # RabbitMQ
   rabbitmq:
-    image: rabbitmq:management-alpine
+    image: rabbitmq:alpine
     container_name: RabbitMQ
     hostname: rabbitmq
     ports:
       - 5672:5672
-      - 15672:15672
