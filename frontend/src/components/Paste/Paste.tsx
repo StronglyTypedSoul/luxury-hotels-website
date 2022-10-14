@@ -1,9 +1,8 @@
 import { IPaste } from "../../interfaces/paste";
 import ReactTimeAgo from "react-time-ago";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import "./Paste.scss";
-import React from "react";
 
 interface PasteProps {
 	paste: IPaste;
