@@ -16,17 +16,18 @@ const Navbar: React.FC = () => {
 			if (pastes.length === 0) return;
 			let newNotification = `${pastes.length} new paste${pastes.length > 1 ? "s were" : " was"} scraped while you were offline.`;
 			const watchedTags = localStorage.getItem("watchedTags");
-			if (!watchedTags || watchedTags.length === 0) return;
-			const receivedTags: { [key: string]: number } = {};
-			pastes.forEach(({ tags }) => {
-				tags.forEach((tag) => {
-					if (receivedTags[tag]) receivedTags[tag]++;
-					else receivedTags[tag] = 1;
+			if (watchedTags && watchedTags.length > 0) {
+				const receivedTags: { [key: string]: number } = {};
+				pastes.forEach(({ tags }) => {
+					tags.forEach((tag) => {
+						if (receivedTags[tag]) receivedTags[tag]++;
+						else receivedTags[tag] = 1;
+					});
 				});
-			});
-			for (const tag in receivedTags) {
-				if (watchedTags.includes(tag)) {
-					newNotification += pastes.length === 1 ? `\nIt's about ${tag}.` : `\n${receivedTags[tag]} of them is about ${tag}.`;
+				for (const tag in receivedTags) {
+					if (watchedTags.includes(tag)) {
+						newNotification += pastes.length === 1 ? `\nIt's about ${tag}.` : `\n${receivedTags[tag]} of them is about ${tag}.`;
+					}
 				}
 			}
 			setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
