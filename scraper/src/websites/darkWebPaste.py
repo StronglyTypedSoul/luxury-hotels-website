@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup, Tag
 from datetime import datetime, timezone, timedelta
 from torRequest import get_tor_content
+import time
 
 url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/lists"
 single_paste_content_url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/view/raw/"
@@ -55,8 +56,13 @@ def build_paste(titleHtml: Tag, authorHtml: Tag, dateHtml: Tag):
 # Builds all the pastes with title, content, author and date
 def extract_pastes(soup: BeautifulSoup):
     pastes = []
+    start_time = time.time()
     cells = soup.select("td")
+    tenth = int(len(cells) / 4 / 10)
     for i in range(0, len(cells), 4):
+        if i > 0 and i % (tenth * 4) == 0:
+            end_time = time.time()
+            print(f"{int(i/4)} / {int(len(cells)/4)} pastes done - {round(end_time - start_time, 2)} seconds elapsed")
         paste = build_paste(cells[i], cells[i + 1], cells[i + 3])
         pastes.append(paste)
     print(f"{len(pastes)} pastes were scraped from 'dark web paste'")

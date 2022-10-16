@@ -56,8 +56,9 @@ def main():
             print(e)
             print("Scraping process failed, trying again...")
             publish_pastes({"error": True, "pastes": []})
-        finally:
-            time.sleep(120)
+            time.sleep(5)
+        else:
+            time.sleep(300)
 
 
 if __name__ == "__main__":
