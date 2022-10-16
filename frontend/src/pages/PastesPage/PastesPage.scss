@@ -31,7 +31,23 @@
 			}
 		}
 	}
-	.pastes-container {
-		width: 100%;
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.pastes-page {
+		.queries {
+			font-size: 0.9rem;
+			.search {
+				width: 50%;
+				input {
+					padding: 0.4em 0.5em;
+					border-radius: 3px;
+					outline: 2px solid transparent;
+					&:focus {
+						outline: 2px solid #1e88df;
+					}
+				}
+			}
+		}
 	}
 }

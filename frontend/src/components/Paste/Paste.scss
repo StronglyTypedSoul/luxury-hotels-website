@@ -7,35 +7,39 @@
 	border-bottom: 1px solid gray;
 	padding: 1.1em 1.4em;
 	.header {
-		@include flex(row, space-between, start);
-		column-gap: 20px;
+		@include flex(row, space-between, center);
 	}
 	.title {
 		text-transform: capitalize;
 		font-weight: bold;
 		font-size: 1.4rem;
+		width: 50%;
+		flex-shrink: 0;
+		flex-wrap: wrap;
 	}
 	.info {
-		@include flex(row, flex-start, center);
-		column-gap: 20px;
+		@include flex(row, flex-end, center);
+		width: 50%;
+		flex-shrink: 0;
+		column-gap: 15px;
 		font-size: 1rem;
 		.author {
 			font-weight: bold;
 		}
 		.time-ago {
-			overflow: hidden;
-			white-space: nowrap;
-			width: 100%;
+			flex-wrap: wrap;
+			text-align: center;
 		}
 		.expand {
-			margin-left: 0.7em;
 			font-size: 1.55rem;
 			cursor: pointer;
+			flex-shrink: 0;
 		}
 	}
 	.tags {
-		margin-top: 8px;
 		@include flex(row, flex-start, center);
+		text-transform: capitalize;
+		margin-top: 8px;
 		flex-wrap: wrap;
 		column-gap: 10px;
 		row-gap: 5px;
@@ -68,26 +72,38 @@
 
 @media only screen and (max-width: $tablet-width) {
 	.paste {
+		padding: 0.9em 1.2em;
 		font-size: 1.1rem;
 		.title {
 			font-size: 1.3rem;
 		}
 		.info {
 			font-size: 0.9rem;
+			column-gap: 10px;
 		}
 	}
 }
 
 @media only screen and (max-width: $mobile-width) {
 	.paste {
+		padding: 0.75em 0.5em;
 		font-size: 0.95rem;
 		.title {
-			font-size: 1.15rem;
+			font-size: 1rem;
 		}
 		.info {
-			font-size: 0.8rem;
+			font-size: 0.7rem;
+			column-gap: 7px;
 			.expand {
-				font-size: 1.5rem;
+				font-size: 1.3rem;
+			}
+		}
+		.tags {
+			column-gap: 7px;
+			.tag {
+				font-size: 0.7rem;
+				border-radius: 6px;
+				padding: 0.25em 0.45em;
 			}
 		}
 	}
