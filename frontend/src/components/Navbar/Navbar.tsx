@@ -12,6 +12,13 @@ const Navbar: React.FC = () => {
 	const socket = useSocket();
 
 	useEffect(() => {
+		document.addEventListener("click", clickOutsideNotifications);
+		return () => {
+			document.removeEventListener("click", clickOutsideNotifications);
+		};
+	}, [showNotifications]);
+
+	useEffect(() => {
 		socket.on("new_pastes", (pastes: ICompactPaste[]) => {
 			if (pastes.length === 0) return;
 			let newNotification = `${pastes.length} new paste${pastes.length > 1 ? "s were" : " was"} scraped while you were offline.`;
@@ -53,6 +60,10 @@ const Navbar: React.FC = () => {
 		};
 	}, []);
 
+	const clickOutsideNotifications = () => {
+		if (showNotifications) toggleNotifications();
+	};
+
 	const toggleNotifications = () => {
 		if (showNotifications) {
 			setNotifications([]);
@@ -75,10 +86,15 @@ const Navbar: React.FC = () => {
 				</NavLink>
 			</div>
 			<div className="notifications">
-				<FaBell onClick={() => toggleNotifications()} />
+				<FaBell
+					onClick={(e) => {
+						e.stopPropagation();
+						toggleNotifications();
+					}}
+				/>
 				{notifications.length > 0 && <div className="notifications-counter">{notifications.length}</div>}
 				{showNotifications && (
-					<div className="notifications-container">
+					<div className="notifications-container" onClick={(e) => e.stopPropagation()}>
 						{notifications.length > 0 ? (
 							<>
 								{notifications.map((notification, index) => {
