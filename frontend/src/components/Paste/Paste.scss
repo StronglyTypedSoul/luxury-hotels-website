@@ -7,38 +7,44 @@
 	border-bottom: 1px solid gray;
 	padding: 1.1em 1.4em;
 	.header {
-		@include flex(row, space-between, center);
+		@include flex(row, space-between, start);
+		column-gap: 20px;
 	}
-	.caption {
-		@include flex(column, flex-start, flex-start);
+	.title {
 		text-transform: capitalize;
-		.title {
-			font-weight: bold;
-			font-size: 1.4rem;
-		}
-		.tags {
-			margin-top: 9px;
-			@include flex(row, flex-start, center);
-			column-gap: 10px;
-			.tag {
-				font-size: 0.9rem;
-				border-radius: 9px;
-				border: 1px solid rgb(190, 190, 190);
-				background-color: rgb(215, 215, 215);
-				padding: 0.25em 0.45em;
-			}
-		}
+		font-weight: bold;
+		font-size: 1.4rem;
 	}
 	.info {
 		@include flex(row, flex-start, center);
+		column-gap: 20px;
 		font-size: 1rem;
 		.author {
 			font-weight: bold;
+		}
+		.time-ago {
+			overflow: hidden;
+			white-space: nowrap;
+			width: 100%;
 		}
 		.expand {
 			margin-left: 0.7em;
 			font-size: 1.55rem;
 			cursor: pointer;
+		}
+	}
+	.tags {
+		margin-top: 8px;
+		@include flex(row, flex-start, center);
+		flex-wrap: wrap;
+		column-gap: 10px;
+		row-gap: 5px;
+		.tag {
+			font-size: 0.9rem;
+			border-radius: 9px;
+			border: 1px solid rgb(190, 190, 190);
+			background-color: rgb(215, 215, 215);
+			padding: 0.25em 0.45em;
 		}
 	}
 	.content {
@@ -57,5 +63,32 @@
 		border-bottom: 0;
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
+	}
+}
+
+@media only screen and (max-width: $tablet-width) {
+	.paste {
+		font-size: 1.1rem;
+		.title {
+			font-size: 1.3rem;
+		}
+		.info {
+			font-size: 0.9rem;
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
+	.paste {
+		font-size: 0.95rem;
+		.title {
+			font-size: 1.15rem;
+		}
+		.info {
+			font-size: 0.8rem;
+			.expand {
+				font-size: 1.5rem;
+			}
+		}
 	}
 }

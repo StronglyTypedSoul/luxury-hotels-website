@@ -9,11 +9,16 @@
 	font: inherit;
 }
 
+html {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	font-family: "Lato", sans-serif;
 	line-height: 1;
-	height: 100vh;
-	width: 100vw;
+	height: 100%;
+	width: 100%;
 }
 
 ul,

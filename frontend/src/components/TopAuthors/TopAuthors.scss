@@ -41,3 +41,15 @@
 		}
 	}
 }
+
+@media only screen and (orientation: landscape) and (max-height: $mobile-height-landscape) {
+	.top-authors {
+		h4 {
+			margin-bottom: 0.4em;
+			font-size: 1.35rem;
+		}
+		p {
+			margin: 0.25em 0;
+		}
+	}
+}

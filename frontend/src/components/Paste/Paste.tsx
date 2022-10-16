@@ -18,28 +18,26 @@ const Paste = React.forwardRef<HTMLDivElement, PasteProps>(({ paste }, ref) => {
 	const pasteBody = (
 		<>
 			<div className="header">
-				<div className="caption">
-					<span className="title">{title}</span>
-					{tags.length > 0 && (
-						<span className="tags">
-							{tags.map((tag) => (
-								<span className="tag" key={tag}>
-									{tag}
-								</span>
-							))}
-						</span>
-					)}
-				</div>
+				<div className="title">{title}</div>
 				<div className="info">
 					<span className="author">{author}</span>
-					<span>
-						, <ReactTimeAgo date={new Date(date)} />
+					<span className="time-ago">
+						<ReactTimeAgo date={new Date(date)} />
 					</span>
 					<span className="expand" onClick={() => setShowContent(!showContent)}>
 						{showContent ? <FaMinus /> : <FaPlus />}
 					</span>
 				</div>
 			</div>
+			{tags.length > 0 && (
+				<div className="tags">
+					{tags.map((tag) => (
+						<span className="tag" key={tag}>
+							{tag}
+						</span>
+					))}
+				</div>
+			)}
 			<div
 				ref={contentRef}
 				className={`content ${showContent ? "open" : ""}`}

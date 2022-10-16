@@ -70,3 +70,11 @@
 		}
 	}
 }
+
+@media only screen and (orientation: landscape) and (max-height: $mobile-height-landscape) {
+	.dashboard-page {
+		.features-container {
+			gap: 8px;
+		}
+	}
+}

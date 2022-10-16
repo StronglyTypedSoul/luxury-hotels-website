@@ -5,6 +5,7 @@
 .pastes-page {
 	@include page;
 	max-width: 1300px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	.loader {
@@ -29,5 +30,8 @@
 				}
 			}
 		}
+	}
+	.pastes-container {
+		width: 100%;
 	}
 }

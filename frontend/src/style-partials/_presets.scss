@@ -11,7 +11,11 @@
 	}
 	@media only screen and (max-width: $mobile-width) {
 		margin-top: $navbar-height-small;
-		padding: 0.9em;
+		padding: 0.8em;
+	}
+	@media only screen and (orientation: landscape) and (max-height: $mobile-height-landscape) {
+		margin-top: $navbar-height-small;
+		padding: 0.55em;
 	}
 }
 
@@ -26,6 +30,10 @@
 	@media only screen and (max-width: $mobile-width) {
 		font-size: 1.1rem;
 		padding: 0.5em;
+	}
+	@media only screen and (orientation: landscape) and (max-height: $mobile-height-landscape) {
+		font-size: 0.9rem;
+		padding: 0.4em;
 	}
 }
 

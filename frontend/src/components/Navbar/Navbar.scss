@@ -13,6 +13,7 @@
 	font-weight: bold;
 	padding: 0.5em 1.2em;
 	box-shadow: 0 0 10px 1px black;
+	@include no-select;
 	.links {
 		@include flex(row, flex-start, center);
 		column-gap: 30px;
@@ -78,11 +79,11 @@
 
 @media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
 	.navbar {
-		padding: 0.5em 0.6em;
-		font-size: 1.7rem;
+		padding: 0.5em 0.5em;
+		font-size: 1.65rem;
 		height: $navbar-height-small;
 		.links {
-			column-gap: 15px;
+			column-gap: 12px;
 		}
 	}
 }

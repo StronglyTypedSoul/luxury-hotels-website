@@ -33,3 +33,14 @@
 		}
 	}
 }
+
+@media only screen and (orientation: landscape) and (max-height: $mobile-height-landscape) {
+	.today-pastes {
+		.count {
+			font-size: 1.9rem;
+		}
+		.rate {
+			font-size: 1.25rem;
+		}
+	}
+}
