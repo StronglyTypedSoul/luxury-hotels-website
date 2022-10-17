@@ -7,8 +7,9 @@ const router = express.Router();
 // Get a pastes batch by size and offset
 router.get("/", validatePastesBatch(), validate, async (req: Request, res: Response) => {
 	const { size, offset, search } = req.query;
+	const tags = (req.query.tags as string[]) || [];
 	try {
-		const pastes = await db.getPastesBatch(+size, +offset, String(search));
+		const pastes = await db.getPastesBatch(+size, +offset, String(search), tags);
 		res.status(200).json(pastes);
 	} catch (err) {
 		console.log(err.message);
@@ -25,6 +26,17 @@ router.get("/dashboard", async (req: Request, res: Response) => {
 		dashboard["topAuthors"] = await db.getTopAuthors();
 		dashboard["tags"] = await db.getTagsByQuantity();
 		res.status(200).json(dashboard);
+	} catch (err) {
+		console.log(err.message);
+		res.status(500).send(err.message);
+	}
+});
+
+// Gets all the tags
+router.get("/tags", async (req: Request, res: Response) => {
+	try {
+		const tags = await db.getAllTags();
+		res.status(200).json(tags);
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).send(err.message);

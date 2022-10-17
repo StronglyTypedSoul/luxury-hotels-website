@@ -8,9 +8,10 @@ export async function getAllPastes(): Promise<IPasteModel[]> {
 }
 
 // Gets a pastes batch by size, offset and a search term
-export async function getPastesBatch(size: number, offset: number, search: string): Promise<IPasteModel[]> {
+export async function getPastesBatch(size: number, offset: number, search: string, tags: string[]): Promise<IPasteModel[]> {
 	const searchRegex = new RegExp(search, "i");
-	const findQuery = search ? { $or: [{ title: searchRegex }, { content: searchRegex }, { author: searchRegex }] } : {};
+	const findQuery = { $or: [{ title: searchRegex }, { content: searchRegex }, { author: searchRegex }] };
+	if (tags.length > 0) findQuery["tags"] = { $in: tags };
 	const pastes = await Paste.find(findQuery).sort({ date: -1 }).skip(offset).limit(size).exec();
 	return pastes;
 }
@@ -20,6 +21,13 @@ export async function getPastesScrapedAfter(time: Date, compact: boolean): Promi
 	const projection = compact ? { title: 1, author: 1, tags: 1 } : {};
 	const pastes = await Paste.find({ scrapedAt: { $gte: time } }, projection).exec();
 	return pastes;
+}
+
+// Gets all the tags
+export async function getAllTags(): Promise<string[]> {
+	let tags = await Paste.aggregate([{ $unwind: { path: "$tags" } }, { $group: { _id: "$tags" } }]).exec();
+	tags = tags.map((tag) => tag._id);
+	return tags;
 }
 
 // Gets the count of all pastes

@@ -12,11 +12,12 @@
 		margin-top: 1em;
 	}
 	.queries {
-		@include flex(row, space-between, center);
+		@include flex(column, flex-start, flex-start);
+		row-gap: 15px;
 		font-size: 1.3rem;
-		margin-bottom: 1em;
+		margin-bottom: 1.5em;
 		.search {
-			width: 30%;
+			width: 40%;
 			input {
 				background-color: $paste-color;
 				width: 100%;
@@ -30,21 +31,57 @@
 				}
 			}
 		}
+		.filters {
+			width: 100%;
+			.tags {
+				@include flex(row, flex-start, flex-start);
+				flex-wrap: wrap;
+				font-size: 1.1rem;
+				text-transform: capitalize;
+				font-weight: bold;
+				.tag {
+					@include no-select;
+					@include card-box-shadow;
+					cursor: pointer;
+					border: 3px solid lightgray;
+					color: black;
+					background-color: white;
+					border-radius: 10px;
+					margin: 0.2em;
+					padding: 0.2em 0.4em;
+					transition: border 0.3s, color 0.3s;
+					&.active {
+						border-color: $pretty-blue;
+						color: $pretty-blue;
+					}
+				}
+			}
+		}
 	}
 }
 
 @media only screen and (max-width: $mobile-width) {
 	.pastes-page {
 		.queries {
-			font-size: 0.9rem;
+			font-size: 0.95rem;
+			row-gap: 10px;
 			.search {
-				width: 50%;
+				width: 60%;
 				input {
-					padding: 0.4em 0.5em;
+					padding: 0.4em 0.55em;
 					border-radius: 3px;
 					outline: 2px solid transparent;
 					&:focus {
 						outline: 2px solid #1e88df;
+					}
+				}
+			}
+			.filters {
+				.tags {
+					font-size: 0.85rem;
+					.tag {
+						border-width: 2px;
+						border-radius: 8px;
 					}
 				}
 			}

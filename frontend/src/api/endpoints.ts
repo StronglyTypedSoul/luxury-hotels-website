@@ -15,13 +15,19 @@ export const getDashboardComponents = async () => {
 	return responseHandler(response);
 };
 
-export const getPastesBatch = async (offset: number, searchTerm: string) => {
+export const getPastesBatch = async (offset: number, searchTerm: string, tags: string[]) => {
 	const response = axios.get("/api/pastes", {
 		params: {
 			size: PASTES_BATCH_SIZE,
 			offset,
 			search: searchTerm,
+			tags,
 		},
 	});
+	return responseHandler(response);
+};
+
+export const getAllTags = async () => {
+	const response = axios.get("/api/pastes/tags");
 	return responseHandler(response);
 };
