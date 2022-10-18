@@ -2,6 +2,7 @@ import { IPaste } from "../../interfaces/paste";
 import ReactTimeAgo from "react-time-ago";
 import React, { useRef, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { isMobile } from "react-device-detect";
 import "./Paste.scss";
 
 interface PasteProps {
@@ -17,7 +18,7 @@ const Paste = React.forwardRef<HTMLDivElement, PasteProps>(({ paste }, ref) => {
 
 	const pasteBody = (
 		<>
-			<div className="header">
+			<div className="header" onClick={() => isMobile && setShowContent(!showContent)}>
 				<div className="title">{title}</div>
 				<div className="info">
 					<span className="author">{author}</span>
