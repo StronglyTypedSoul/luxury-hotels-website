@@ -15,7 +15,7 @@ const usePastes = () => {
 		getPastesBatch(offset, searchTerm, tags)
 			.then((newPastes) => {
 				setPastes((prevPastes) => [...prevPastes, ...newPastes]);
-				setHasMorePastes(Boolean(newPastes.length));
+				setHasMorePastes(newPastes.length >= PASTES_BATCH_SIZE);
 				setIsLoading(false);
 			})
 			.catch(() => {
