@@ -20,7 +20,7 @@ The entire application is dockerized using docker-compose.
 ## Live Application
 
 Deployed on an AWS EC2 instance.  
-http://darkweb-scraper.tk  
+<a href="http://darkweb-scraper.tk">darkweb-scraper.tk</a>  
 (<a href="http://ec2-157-175-184-221.me-south-1.compute.amazonaws.com/">Alternative Link</a>)
 
 ---
