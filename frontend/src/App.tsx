@@ -5,6 +5,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import PastesPage from "./pages/PastesPage/PastesPage";
 import { useEffect } from "react";
 import useSocket from "./hooks/useSocket";
+import PersonalPage from "./pages/PersonalPage/PersonalPage";
 
 const App: React.FC = () => {
 	const socket = useSocket();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
 				<Routes>
 					<Route path="/" element={<DashboardPage />} />
 					<Route path="/pastes" element={<PastesPage />} />
+					<Route path="/personal" element={<PersonalPage />} />
 					<Route path="*" element={<Navigate to="/" />} />
 				</Routes>
 			</BrowserRouter>

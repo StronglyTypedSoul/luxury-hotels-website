@@ -77,13 +77,26 @@
 	}
 }
 
+@media only screen and (max-width: $tablet-width) {
+	.navbar {
+		padding: 0.5em 0.8em;
+		font-size: 1.8rem;
+		.links {
+			column-gap: 15px;
+		}
+	}
+}
+
 @media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
 	.navbar {
-		padding: 0.5em 0.5em;
-		font-size: 1.65rem;
+		padding: 0.5em 0.4em;
+		font-size: 1.3rem;
 		height: $navbar-height-small;
 		.links {
-			column-gap: 12px;
+			column-gap: 8px;
+			a {
+				padding: 0.2em 0.25em;
+			}
 		}
 	}
 }

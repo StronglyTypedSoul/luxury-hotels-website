@@ -1,0 +1,80 @@
+@import "../../style-partials/utilities";
+@import "../../style-partials/presets";
+@import "../../style-partials/variables";
+
+.personal-page {
+	@include page;
+	height: calc(100vh - $navbar-height);
+	color: white;
+	h4 {
+		font-size: 2.1rem;
+		margin-bottom: 0.6em;
+	}
+	.tags {
+		font-size: 1.6rem;
+		@include flex(column, flex-start, flex-start);
+		row-gap: 11px;
+		text-transform: capitalize;
+		width: 50%;
+		.tag {
+			@include flex(row, space-between, center);
+			width: 100%;
+		}
+	}
+	.switch {
+		position: relative;
+		display: inline-block;
+		@include size(54px, 30px);
+		input {
+			appearance: none;
+			&:checked {
+				& + .slider {
+					background-color: #2196f3;
+					&::before {
+						-webkit-transform: translateX(23px);
+						-ms-transform: translateX(23px);
+						transform: translateX(23px);
+					}
+				}
+			}
+			&:focus + .slider {
+				box-shadow: 0 0 1px #2196f3;
+			}
+		}
+		.slider {
+			@include position(absolute, 0, 0);
+			@include size(100%, 100%);
+			cursor: pointer;
+			background-color: #ccc;
+			-webkit-transition: 0.4s;
+			transition: 0.4s;
+			border-radius: 30px;
+			&::before {
+				content: "";
+				border-radius: 50%;
+				position: absolute;
+				left: 4px;
+				bottom: 4px;
+				@include size(23px, 23px);
+				background-color: white;
+				-webkit-transition: 0.4s;
+				transition: 0.4s;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
+	.personal-page {
+		height: calc(100vh - $navbar-height-small);
+		h4 {
+			font-size: 1.7rem;
+			margin-bottom: 0.6em;
+		}
+		.tags {
+			font-size: 1.3rem;
+			row-gap: 10px;
+			width: 100%;
+		}
+	}
+}
