@@ -77,17 +77,18 @@
 	}
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (max-height: $tablet-height) {
 	.navbar {
-		padding: 0.5em 0.8em;
-		font-size: 1.8rem;
+		padding: 0.5em 1em;
+		font-size: 1.6rem;
+		height: $navbar-height-small;
 		.links {
 			column-gap: 15px;
 		}
 	}
 }
 
-@media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
+@media only screen and (max-width: $mobile-width) {
 	.navbar {
 		padding: 0.5em 0.4em;
 		font-size: 1.3rem;

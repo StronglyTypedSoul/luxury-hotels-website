@@ -64,12 +64,29 @@
 	}
 }
 
-@media only screen and (max-width: $mobile-width), (max-height: $tablet-height) {
+@media only screen and (max-height: $tablet-height) {
+	.personal-page {
+		height: calc(100vh - $navbar-height-small);
+	}
+}
+
+@media only screen and (max-width: $tablet-width) {
+	.personal-page {
+		h4 {
+			font-size: 1.9rem;
+		}
+		.tags {
+			font-size: 1.5rem;
+			width: 80%;
+		}
+	}
+}
+
+@media only screen and (max-width: $mobile-width) {
 	.personal-page {
 		height: calc(100vh - $navbar-height-small);
 		h4 {
 			font-size: 1.7rem;
-			margin-bottom: 0.6em;
 		}
 		.tags {
 			font-size: 1.3rem;
