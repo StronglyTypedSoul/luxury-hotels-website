@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+
+name = "Stronghold"
 url = "http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all"
 html_file = "./src/websites/htmls/stronghold.html"
 

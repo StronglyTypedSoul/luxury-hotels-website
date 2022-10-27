@@ -40,7 +40,7 @@ def establish_tor_connection():
     return
 
 
-# The main application loop, attempting to scrape the website every 2 minutes
+# The main application loop, attempting to scrape the website every 5 minutes
 def main():
     establish_tor_connection()
     while True:

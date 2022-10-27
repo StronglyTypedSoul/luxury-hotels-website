@@ -3,6 +3,8 @@ from datetime import datetime, timezone, timedelta
 from torRequest import get_tor_content
 import time
 
+
+name = "DarkWebPaste"
 url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/lists"
 single_paste_content_url = "http://paste2vljvhmwq5zy33re2hzu4fisgqsohufgbljqomib2brzx3q4mid.onion/view/raw/"
 html_file = "./src/websites/htmls/darkWebPaste.html"
