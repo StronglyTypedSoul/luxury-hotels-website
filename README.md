@@ -40,3 +40,27 @@ Note: it might take some time for all the container to build.
 When all the containers are running, go to <a href="http://localhost:3000">localhost:3000</a>.
 
 You will then have to wait for the first scrape to complete before any data will be presented in the dashboard.
+
+---
+
+## Features
+
+### Dashboard Page, containing general information about all the scraped pastes.
+
+![Dashboard](./readme/dashboard.png)
+
+### Pastes Page, allowing browsing of all scraped pastes, or filter pastes by search terms or tags.
+
+![Pastes](./readme/pastes.png)
+
+### Personal Page, allowing the user to select tags for which he will receive notifications.
+
+![Personal](./readme/personal.png)
+
+### When a scraping cycle finishes, the user receives a notification, containing the result of the scrape and relevant information based on his personal configuration.
+
+![Online Notifications](./readme/online-notifications.png)
+
+### When a user enters the application after being offline, he gets a rundown of the application activity for the time he was logged off, including relevant information based on his personal configuration.
+
+![Offline Notifications](./readme/offline-notifications.png)
