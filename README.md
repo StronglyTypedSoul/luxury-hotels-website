@@ -23,7 +23,7 @@ Deployed on an AWS EC2 instance.
 
 **Beware - The pastes in the website are real, some content may be inappropriate.**  
 <a href="http://darkweb-scraper.tk">darkweb-scraper.tk</a>  
-(<a href="http://ec2-15-184-188-22.me-south-1.compute.amazonaws.com/">Alternative Link</a>)
+(<a href="http://ec2-157-175-95-185.me-south-1.compute.amazonaws.com/">Alternative Link</a>)
 
 ---
 
